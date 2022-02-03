@@ -9,6 +9,7 @@ function App() {
       <Navbar />
 
       <Routes>
+        {/* <Route exact path = '/' element={} */}
         <Route path="/signup" element={<Signup />} />
       </Routes>
     </div>
