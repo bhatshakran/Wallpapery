@@ -3,19 +3,19 @@ import { Link } from "react-router-dom";
 import { AiFillFacebook } from "react-icons/ai";
 import SignupForm from "../forms/SignupForm";
 import { FirebaseContext } from "../../firebase";
+import { useSelector } from "react-redux";
 
 const Signup = () => {
-  // let msg = useSelector((state) => state.users.message);
-  // let msg = "abc";
+  let msg = useSelector((state) => state.users.message);
 
   return (
     <React.Fragment>
       <div className="mx-auto mt-8 border border-gray-200 largecard">
-        {/* {msg !== "" ? (
+        {msg !== "" ? (
           <div className="w-full mt-2 mb-2 text-white bg-blue-500">{msg}</div>
         ) : (
           ""
-        )} */}
+        )}
         <h1 className="pt-6 text-5xl text-center font-grand-hotel">
           Wallpapery
         </h1>

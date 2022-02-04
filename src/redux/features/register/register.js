@@ -1,8 +1,18 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 
-export const registerUser = createAsyncThunk("/api/users", async (msg) => {
-  console.log(msg);
+export const registerUser = createAsyncThunk("/api/users", async (data) => {
+  const { firebase, values } = data;
+
+  try {
+    let response = firebase.doCreateUserWithEmailAndPassword(
+      values.email,
+      values.password
+    );
+    return response;
+  } catch (err) {
+    return err;
+  }
 });
 
 // register slice
@@ -19,8 +29,8 @@ export const registerSlice = createSlice({
     [registerUser.fulfilled]: (state, action) => {
       state.isAuthenticated = true;
       state.loading = false;
-      state.user = action.payload.values;
-      state.message = action.payload.msg;
+      state.user = action.payload.user;
+      state.message = "User Created! Success!";
     },
   },
 });

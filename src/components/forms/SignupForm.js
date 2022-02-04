@@ -9,11 +9,6 @@ const SignupForm = ({ firebase }) => {
   // Validate form input fields using formik
   const validate = (values) => {
     const errors = {};
-    if (!values.name) {
-      errors.name = "Please enter a name";
-    } else if (values.name.length > 15) {
-      errors.name = "Must be 15 characters or less";
-    }
 
     if (!values.password) {
       errors.password = "Please enter a password";
@@ -36,18 +31,13 @@ const SignupForm = ({ firebase }) => {
 
   // Submit function
   const onSubmit = (values) => {
-    firebase
-      .doCreateUserWithEmailAndPassword(values.email, values.password)
-      .then(dispatch(registerUser("Created User")))
-      .catch((err) => {
-        dispatch(registerUser(err));
-      });
+    const data = { values, firebase };
+    dispatch(registerUser(data));
   };
 
   //   Formik form instantiation using useFormik hook
   const formik = useFormik({
     initialValues: {
-      name: "",
       email: "",
       password: "",
     },
@@ -60,20 +50,6 @@ const SignupForm = ({ firebase }) => {
       action=""
       className="grid grid-cols-1 mt-4 lg:mx-40"
     >
-      <input
-        type="text"
-        name="name"
-        id="name"
-        onChange={formik.handleChange}
-        value={formik.values.name}
-        className="form-control"
-        placeholder="Name"
-      />
-      {formik.errors.name ? (
-        <div className="w-2/3 mx-auto text-xs text-red-600">
-          {formik.errors.name}
-        </div>
-      ) : null}
       <input
         type="email"
         name="email"
