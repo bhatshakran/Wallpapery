@@ -1,14 +1,22 @@
-import * as firebase from "firebase/app";
+import app from "firebase/compat/app";
+import "firebase/compat/auth";
+
 const firebaseConfig = {
-  apiKey: "AIzaSyCFIwJ4ALKX5b_zaqPFpXBcMU6q6-3nE2s",
-  authDomain: "wallpapery-a46f8.firebaseapp.com",
-  projectId: "wallpapery-a46f8",
-  storageBucket: "wallpapery-a46f8.appspot.com",
-  messagingSenderId: "647591784046",
-  appId: "1:647591784046:web:2abdf1ec1e7c14c81ec07f",
-  measurementId: "G-2XGQDEMWQ6",
+  apiKey: `'${process.env.REACT_APP_API_KEY}'`,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  appId: process.env.REACT_APP_APPID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 };
 
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-export default firebase;
+class Firebase {
+  constructor() {
+    app.initializeApp(firebaseConfig);
+
+    this.auth = app.auth();
+  }
+}
+
+export default Firebase;
