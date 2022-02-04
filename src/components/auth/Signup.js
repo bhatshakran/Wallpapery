@@ -2,14 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { AiFillFacebook } from "react-icons/ai";
 import SignupForm from "../forms/SignupForm";
+import { FirebaseContext } from "../../firebase";
 
 const Signup = () => {
   // let msg = useSelector((state) => state.users.message);
-  let msg = "abc";
+  // let msg = "abc";
 
-  const getMsg = (val) => {
-    console.log(val);
-  };
   return (
     <React.Fragment>
       <div className="mx-auto mt-8 border border-gray-200 largecard">
@@ -31,7 +29,9 @@ const Signup = () => {
           </Link>
         </div>
         <div className="mt-4 text-center text-gray-500">OR</div>
-        <SignupForm />
+        <FirebaseContext.Consumer>
+          {(firebase) => <SignupForm firebase={firebase} />}
+        </FirebaseContext.Consumer>
       </div>
       <div className="flex items-center justify-center mx-auto mt-3 text-sm border border-gray-200 smallcard">
         <span>Have an account?</span>

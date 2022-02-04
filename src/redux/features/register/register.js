@@ -1,13 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 
-export const registerUser = createAsyncThunk("/api/users", async (values) => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-  const { name, email, password } = values;
+export const registerUser = createAsyncThunk("/api/users", async (msg) => {
+  console.log(msg);
 });
 
 // register slice

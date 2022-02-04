@@ -3,7 +3,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { registerUser } from "../../redux/features/register/register";
 
-const SignupForm = () => {
+const SignupForm = ({ firebase }) => {
   const dispatch = useDispatch();
 
   // Validate form input fields using formik
@@ -36,7 +36,12 @@ const SignupForm = () => {
 
   // Submit function
   const onSubmit = (values) => {
-    dispatch(registerUser(values));
+    firebase
+      .doCreateUserWithEmailAndPassword(values.email, values.password)
+      .then(dispatch(registerUser("Created User")))
+      .catch((err) => {
+        dispatch(registerUser(err));
+      });
   };
 
   //   Formik form instantiation using useFormik hook

@@ -2,7 +2,7 @@ import app from "firebase/compat/app";
 import "firebase/compat/auth";
 
 const firebaseConfig = {
-  apiKey: `'${process.env.REACT_APP_API_KEY}'`,
+  apiKey: process.env.REACT_APP_API_KEY,
   authDomain: process.env.REACT_APP_AUTH_DOMAIN,
   projectId: process.env.REACT_APP_PROJECT_ID,
   appId: process.env.REACT_APP_APPID,
@@ -17,6 +17,8 @@ class Firebase {
 
     this.auth = app.auth();
   }
+  doCreateUserWithEmailAndPassword = (email, password) =>
+    this.auth.createUserWithEmailAndPassword(email, password);
 }
 
 export default Firebase;
