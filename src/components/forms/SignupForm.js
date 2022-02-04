@@ -53,7 +53,7 @@ const SignupForm = () => {
     <form
       onSubmit={formik.handleSubmit}
       action=""
-      className="grid grid-cols-1 mt-4 mx-40"
+      className="grid grid-cols-1 mt-4 lg:mx-40"
     >
       <input
         type="text"

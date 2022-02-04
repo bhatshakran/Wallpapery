@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import counterReducer from "../features/counter/main";
+import registerReducer from "../features/register/register";
 
 export default configureStore({
   reducer: {
-    counter: counterReducer,
+    users: registerReducer,
   },
 });
