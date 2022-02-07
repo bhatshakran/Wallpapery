@@ -7,9 +7,10 @@ import { useDispatch } from "react-redux";
 // import { loginUser } from "../../redux/features/auth/auth";
 // import { useHistory } from "react-router";
 
-const LoginForm = () => {
+const LoginForm = ({ firebase }) => {
   //   const history = useHistory();
   const auth = useSelector((state) => state.auth);
+  console.log(firebase);
 
   //   useEffect(() => {
   //     if (auth.isAuthenticated) {
