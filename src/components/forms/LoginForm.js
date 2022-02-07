@@ -1,41 +1,47 @@
 import { useFormik } from "formik";
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { AiFillFacebook } from "react-icons/ai";
 import { useDispatch } from "react-redux";
-import { registerUser } from "../../redux/features/register/register";
+// import { loginUser } from "../../redux/features/auth/auth";
+// import { useHistory } from "react-router";
 
-const SignupForm = ({ firebase }) => {
+const LoginForm = () => {
+  //   const history = useHistory();
+  const auth = useSelector((state) => state.auth);
+
+  //   useEffect(() => {
+  //     if (auth.isAuthenticated) {
+  //       history.push("/");
+  //     }
+  //   }, [auth.isAuthenticated]);
+
   const dispatch = useDispatch();
-
-  // Validate form input fields using formik
+  // Validate form values
   const validate = (values) => {
     const errors = {};
-
-    if (!values.password) {
-      errors.password = "Please enter a password";
-    } else if (values.password.length > 20) {
-      errors.password = "Must be 20 characters or less";
-    } else if (values.password.length < 6) {
-      errors.password = "Must be 6 characters or more";
-    }
-
     if (!values.email) {
-      errors.email = "Please enter a email";
+      errors.email = "Email is required";
     } else if (
       !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
     ) {
       errors.email = "Invalid email address";
     }
+    if (!values.password) {
+      errors.password = "Required";
+    } else if (values.password.length < 6) {
+      errors.password = "Must be 6 characters or more";
+    }
 
     return errors;
   };
 
-  // Submit function
   const onSubmit = (values) => {
-    const data = { values, firebase };
-    dispatch(registerUser(data));
+    // dispatch(loginUser(values));
+    console.log("submitted");
   };
 
-  //   Formik form instantiation using useFormik hook
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -44,12 +50,9 @@ const SignupForm = ({ firebase }) => {
     validate,
     onSubmit,
   });
+
   return (
-    <form
-      onSubmit={formik.handleSubmit}
-      action=""
-      className="grid grid-cols-1 mt-4 lg:mx-40"
-    >
+    <form onSubmit={formik.handleSubmit} className="grid grid-cols-1 mt-4">
       <input
         type="email"
         name="email"
@@ -64,7 +67,6 @@ const SignupForm = ({ firebase }) => {
           {formik.errors.email}
         </div>
       ) : null}
-
       <input
         type="password"
         name="password"
@@ -83,14 +85,21 @@ const SignupForm = ({ firebase }) => {
         type="submit"
         className="w-3/4 py-1 mx-auto mt-4 text-white bg-blue-300 rounded-sm cursor-pointer hover:bg-blue-600"
       >
-        Sign Up
+        Login
       </button>
-      <span className="w-3/4 mx-auto mt-4 text-xs font-medium text-center text-gray-500">
-        By signing up, you agree to our{" "}
-        <strong> Terms , Data Policy and Cookies Policy .</strong>
-      </span>
+
+      <div className="mt-4 text-center text-gray-500">OR</div>
+      <div className="flex items-center justify-center mt-5 font-medium text-blue-900 text-md">
+        <AiFillFacebook className="text-xl" />
+        <Link to="/" className="text-center">
+          Log in with Facebook
+        </Link>
+      </div>
+      <div className="mt-3 text-sm text-center text-blue-900">
+        <Link to="/">Forgot Password?</Link>
+      </div>
     </form>
   );
 };
 
-export default SignupForm;
+export default LoginForm;

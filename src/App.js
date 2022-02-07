@@ -1,7 +1,8 @@
-import { Counter } from "./Counter";
 import Navbar from "./components/layout/Navbar";
 import Signup from "./components/auth/Signup";
 import { Routes, Route } from "react-router-dom";
+import Homepage from "./components/home/Homepage";
+import Login from "./components/auth/Login";
 
 function App() {
   return (
@@ -9,8 +10,9 @@ function App() {
       <Navbar />
 
       <Routes>
-        {/* <Route exact path = '/' element={} */}
-        <Route path="/signup" element={<Signup />} />
+        <Route exact path="/" element={<Homepage />} />
+        <Route exact path="/signup" element={<Signup />} />
+        <Route exact path="/login" element={<Login />} />
       </Routes>
     </div>
   );
