@@ -3,8 +3,7 @@ import ImagesClient from "../../../axios";
 
 export const getImages = createAsyncThunk("api/images", async () => {
   try {
-    const res = await ImagesClient.get(`photos?per_page=30`);
-    console.log(res);
+    const res = await ImagesClient.get(`photos?per_page=20`);
     return res;
   } catch (err) {
     return err;

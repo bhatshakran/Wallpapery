@@ -12,7 +12,7 @@ const Homepage = () => {
     dispatch(getImages());
   }, []);
   return (
-    <div className="w-full min-h-screen bg-gray-200">
+    <div className="w-full min-h-screen p-2 bg-gray-200">
       <ToastContainer />
       <ImageGrid data={images} />
     </div>
