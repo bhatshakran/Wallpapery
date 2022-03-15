@@ -4,19 +4,18 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { AiFillFacebook } from "react-icons/ai";
 import { useDispatch } from "react-redux";
-// import { loginUser } from "../../redux/features/auth/auth";
-// import { useHistory } from "react-router";
+import { loginUser } from "../../redux/features/auth/auth";
+import { useNavigate } from "react-router";
 
 const LoginForm = ({ firebase }) => {
-  //   const history = useHistory();
+  const navigate = useNavigate();
   const auth = useSelector((state) => state.auth);
-  console.log(firebase);
 
-  //   useEffect(() => {
-  //     if (auth.isAuthenticated) {
-  //       history.push("/");
-  //     }
-  //   }, [auth.isAuthenticated]);
+  useEffect(() => {
+    if (auth.isAuthenticated) {
+      navigate("/");
+    }
+  }, [auth.isAuthenticated]);
 
   const dispatch = useDispatch();
   // Validate form values
@@ -39,8 +38,8 @@ const LoginForm = ({ firebase }) => {
   };
 
   const onSubmit = (values) => {
-    // dispatch(loginUser(values));
-    console.log("submitted");
+    const data = { values, firebase };
+    dispatch(loginUser(data));
   };
 
   const formik = useFormik({
