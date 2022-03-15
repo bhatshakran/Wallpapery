@@ -6,6 +6,7 @@ import { AiFillFacebook } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../redux/features/auth/auth";
 import { useNavigate } from "react-router";
+import { popToast } from "../../redux/features/toast/toast";
 
 const LoginForm = ({ firebase }) => {
   const navigate = useNavigate();
@@ -40,6 +41,7 @@ const LoginForm = ({ firebase }) => {
   const onSubmit = (values) => {
     const data = { values, firebase };
     dispatch(loginUser(data));
+    dispatch(popToast("User Logged In!"));
   };
 
   const formik = useFormik({

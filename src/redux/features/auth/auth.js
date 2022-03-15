@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-export const loginUser = createAsyncThunk("/api/auth", async (data) => {
+export const loginUser = createAsyncThunk("/api/auth/login", async (data) => {
   const { firebase, values } = data;
   try {
     let response = firebase.doSignInWithEmailAndPassword(
@@ -13,6 +13,19 @@ export const loginUser = createAsyncThunk("/api/auth", async (data) => {
   }
 });
 
+// log out current user
+export const logOutUser = createAsyncThunk(
+  "/api/auth/logout",
+  async (firebase) => {
+    try {
+      let response = firebase.logOut();
+      return response;
+    } catch (error) {
+      return error;
+    }
+  }
+);
+
 // login slice
 export const loginSlice = createSlice({
   name: "login",
@@ -20,7 +33,6 @@ export const loginSlice = createSlice({
     isAuthenticated: false,
     loading: true,
     user: {},
-    message: "",
   },
   reducers: {},
   extraReducers: {
@@ -28,7 +40,11 @@ export const loginSlice = createSlice({
       state.isAuthenticated = true;
       state.loading = false;
       state.user = action.payload.user;
-      state.message = "User Logged In! Success!";
+    },
+    [logOutUser.fulfilled]: (state, action) => {
+      state.isAuthenticated = false;
+      state.loading = false.valueOf;
+      state.user = null;
     },
   },
 });

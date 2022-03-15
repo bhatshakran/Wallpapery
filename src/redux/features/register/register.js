@@ -22,7 +22,6 @@ export const registerSlice = createSlice({
     isAuthenticated: false,
     loading: true,
     user: {},
-    message: "",
   },
   reducers: {},
   extraReducers: {
@@ -30,7 +29,6 @@ export const registerSlice = createSlice({
       state.isAuthenticated = true;
       state.loading = false;
       state.user = action.payload.user;
-      state.message = "User Created! Success!";
     },
   },
 });
