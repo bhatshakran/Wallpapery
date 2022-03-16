@@ -1,9 +1,11 @@
 import app from "firebase/compat/app";
 import "firebase/compat/auth";
+import { getDatabase, ref, set } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
   authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_DATABASE_URL,
   projectId: process.env.REACT_APP_PROJECT_ID,
   appId: process.env.REACT_APP_APPID,
   storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
@@ -13,7 +15,8 @@ const firebaseConfig = {
 
 class Firebase {
   constructor() {
-    app.initializeApp(firebaseConfig);
+    const initialzedApp = app.initializeApp(firebaseConfig);
+    const database = getDatabase(initialzedApp);
 
     this.auth = app.auth();
   }
