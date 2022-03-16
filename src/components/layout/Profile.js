@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import profile from "../../images/profile_user.jpeg";
 
 const Profile = () => {
-  const userdetails = useSelector((state) => state.auth.user._delegate);
+  const userdetails = useSelector((state) => state.auth.user);
   const { displayName, email, phoneNumber, photoURL } = userdetails;
   return (
     <div className="min-h-screen px-8 pt-4 pb-10 mx-2 my-4 shadow-xl shadow-gray-400 rounded-3xl">

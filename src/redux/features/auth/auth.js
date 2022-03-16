@@ -26,6 +26,20 @@ export const logOutUser = createAsyncThunk(
   }
 );
 
+// update user name and user picture
+export const updatePictureAndUsername = createAsyncThunk('/api/auth/usernameandpic', async(data) => {
+  const {firebase, updatedName} = data
+  
+  try {
+    const res = firebase.updateUser(updatedName)
+
+    return res
+  } catch (error) {
+    console.log(error)
+    return error
+  }
+})
+
 // login slice
 export const loginSlice = createSlice({
   name: "login",
@@ -43,9 +57,13 @@ export const loginSlice = createSlice({
     },
     [logOutUser.fulfilled]: (state, action) => {
       state.isAuthenticated = false;
-      state.loading = false.valueOf;
+      state.loading = false;
       state.user = null;
     },
+    [updatePictureAndUsername.fulfilled]: (state, action) =>{
+      state.loading = false;
+      state.user = action.payload
+    }
   },
 });
 

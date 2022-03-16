@@ -1,5 +1,6 @@
 import app from "firebase/compat/app";
 import "firebase/compat/auth";
+import { getAuth, updateProfile } from "firebase/auth";
 import { getDatabase, ref, set } from "firebase/database";
 
 const firebaseConfig = {
@@ -30,13 +31,29 @@ class Firebase {
     this.auth.signOut();
   };
 
-  updateUser = (displayName, photoURL) => {
-    const user = this.auth.currentUser();
+  updateUser = (updatedName, photoURL) => {
+    const auth = getAuth();
+    console.log("running");
 
-    user.updateProfile({
-      displayName,
-      photoURL,
-    });
+    try {
+      if (updatedName) {
+        updateProfile(auth.currentUser, {
+          displayName: updatedName,
+        });
+      } else if (photoURL) {
+        updateProfile(auth.currentUser, {
+          photoURL,
+        });
+      } else {
+        updateProfile(auth.currentUser, {
+          displayName: updatedName,
+          photoURL,
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+    return auth.currentUser;
   };
 }
 

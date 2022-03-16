@@ -7,7 +7,7 @@ import Login from "./components/auth/Login";
 import Profile from "./components/layout/Profile";
 import EditProfile from "./components/layout/EditProfile";
 import { useSelector } from "react-redux";
-// import ProtectedRoute from "./components/auth/ProtectedRoute";
+import { FirebaseContext } from "./firebase";
 
 function App() {
   return (
@@ -33,7 +33,9 @@ function App() {
             path="/edit_profile"
             element={
               <RequireAuth redirectTo="/login">
-                <EditProfile />
+                <FirebaseContext.Consumer>
+                  {(firebase) => <EditProfile firebase={firebase} />}
+                </FirebaseContext.Consumer>
               </RequireAuth>
             }
           />
