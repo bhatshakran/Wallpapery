@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { logOutUser } from "../../redux/features/auth/auth";
 import { useDispatch } from "react-redux";
 import { popToast } from "../../redux/features/toast/toast";
+import wallpapery from "../../images/wallpapery.png";
 
 const Navbar = ({ firebase }) => {
   const auth = useSelector((state) => state.auth);
@@ -20,9 +21,11 @@ const Navbar = ({ firebase }) => {
   };
 
   return (
-    <nav className="w-full flex items-center justify-between py-3 px-3.5 border-b border-gray-200">
-      <div className="text-3xl nav-brand ">
-        <Link to="/">Wallpapery</Link>
+    <nav className="h-60 w-full flex items-center justify-between py-3 px-3.5 border-b border-gray-200">
+      <div className="text-6xl italic nav-brand">
+        <Link to="/">
+          <img src={wallpapery} alt="" className="h-64 w-80" />
+        </Link>
       </div>
       <ul className="flex items-center gap-4 nav-items ">
         <li className="text-xl cursor-pointer nav-item">

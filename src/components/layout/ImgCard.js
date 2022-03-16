@@ -3,12 +3,8 @@ import React from "react";
 const ImgCard = ({ card_data }) => {
   console.log(card_data);
   return (
-    <div>
-      <img
-        src={card_data.urls.regular}
-        alt=""
-        className="object-cover w-full h-full"
-      />
+    <div className="hover:cursor-pointer hover:opacity-50">
+      <img src={card_data.urls.regular} alt="" className="" />
     </div>
   );
 };
