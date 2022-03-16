@@ -1,8 +1,11 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import profile from "../../images/profile_user.jpeg";
 
 const Profile = () => {
+  const userdetails = useSelector((state) => state.auth.user._delegate);
+  const { displayName, email, phoneNumber, photoURL } = userdetails;
   return (
     <div className="min-h-screen px-8 pt-4 pb-10 mx-2 my-4 shadow-xl shadow-gray-400 rounded-3xl">
       <div className="flex flex-wrap justify-center w-full gap-10 heading">
@@ -22,10 +25,10 @@ const Profile = () => {
       </div>
       <div className="flex flex-wrap w-full gap-2 pb-8 border-b-2 border-gray-100 name mt-11">
         <div className="flex justify-center w-full text-xl text-stone-700 d_name">
-          <p>Shaqran Bhat</p>
+          <p>{displayName}</p>
         </div>
         <div className="flex justify-center w-full text-sm username text-stone-500">
-          <p>@bhatshakran</p>
+          <p>{email}</p>
         </div>
       </div>
       {/* info container starts here */}
