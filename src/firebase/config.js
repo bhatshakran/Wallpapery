@@ -26,6 +26,15 @@ class Firebase {
   logOut = () => {
     this.auth.signOut();
   };
+
+  updateUser = (displayName, photoURL) => {
+    const user = this.auth.currentUser();
+
+    user.updateProfile({
+      displayName,
+      photoURL,
+    });
+  };
 }
 
 export default Firebase;
