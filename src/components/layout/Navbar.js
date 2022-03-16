@@ -21,10 +21,11 @@ const Navbar = ({ firebase }) => {
   };
 
   return (
-    <nav className="h-60 w-full flex items-center justify-between py-3 px-3.5 border-b border-gray-200">
-      <div className="text-6xl italic nav-brand">
+    <nav className="h-40 w-full flex items-center justify-between  px-3.5  border-gray-200">
+      <div className="font-mono text-6xl italic text-red-300 nav-brand">
         <Link to="/">
-          <img src={wallpapery} alt="" className="h-64 w-80" />
+          {/* <img src={wallpapery} alt="" className="h-36 w-80" /> */}
+          Wallpapery
         </Link>
       </div>
       <ul className="flex items-center gap-4 nav-items ">
