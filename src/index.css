@@ -6,4 +6,11 @@
     .form-control{
         @apply w-3/4 px-2 py-2 mx-auto mt-2 text-sm border border-gray-200 rounded-sm focus:outline-none focus:border-gray-300 bg-gray-50;
     }
+
+    .file_upload{
+        @apply border border-gray-200 inline-block cursor-pointer px-2 py-4 bg-blue-500 text-white rounded
+    }
+    input[type='file']{
+        @apply hidden
+    }
 }

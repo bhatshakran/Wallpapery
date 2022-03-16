@@ -5,6 +5,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import Homepage from "./components/home/Homepage";
 import Login from "./components/auth/Login";
 import Profile from "./components/layout/Profile";
+import EditProfile from "./components/layout/EditProfile";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route exact path="/signup" element={<Signup />} />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/profile" element={<Profile />} />
+          <Route exact path="/edit_profile" element={<EditProfile />} />
         </Routes>
       </div>
     </Router>
