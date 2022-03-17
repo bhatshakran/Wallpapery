@@ -5,6 +5,8 @@ import {
   updateUserPicture,
 } from "../../redux/features/auth/auth";
 import imageCompression from "browser-image-compression";
+import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader";
+import { css } from "@emotion/react";
 
 const EditProfile = ({ firebase }) => {
   const details = useSelector((state) => state.auth);
@@ -65,7 +67,11 @@ const EditProfile = ({ firebase }) => {
 
   // Conditional Rendering
   if (loading) {
-    return <div>Loading....</div>;
+    return (
+      <div className="flex items-center justify-center w-full h-auto">
+        <ClimbingBoxLoader color="navy" loading={loading} css={css} size={15} />
+      </div>
+    );
   } else
     return (
       <div className="min-h-screen px-8 pt-4 pb-10 mx-2 my-4 shadow-xl shadow-gray-400 rounded-3xl">
