@@ -64,7 +64,7 @@ export const loginSlice = createSlice({
   name: "login",
   initialState: {
     isAuthenticated: localStorage.getItem("token") ? true : false,
-    loading: true,
+    loading: false,
     user: localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user"))
       : {},
@@ -73,12 +73,18 @@ export const loginSlice = createSlice({
   },
   reducers: {},
   extraReducers: {
+    [loginUser.pending]: (state, action) => {
+      state.loading = true;
+    },
     [loginUser.fulfilled]: (state, action) => {
       localStorage.setItem("token", action.payload.stsTokenManager.accessToken);
       localStorage.setItem("user", JSON.stringify(action.payload));
       state.isAuthenticated = true;
       state.loading = false;
       state.user = action.payload;
+    },
+    [logOutUser.pending]: (state, action) => {
+      state.loading = true;
     },
     [logOutUser.fulfilled]: (state, action) => {
       localStorage.removeItem("token");
@@ -87,14 +93,20 @@ export const loginSlice = createSlice({
       state.loading = false;
       state.user = {};
     },
+    [updateUsername.pending]: (state, action) => {
+      state.loading = true;
+    },
     [updateUsername.fulfilled]: (state, action) => {
       state.loading = false;
       state.user = action.payload;
     },
-    [updateUserPicture.fulfilled] :(state,action) => {
+    [updateUserPicture.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [updateUserPicture.fulfilled]: (state, action) => {
       state.loading = false;
-      state.dp = action.payload
-    }
+      state.dp = action.payload;
+    },
   },
 });
 
