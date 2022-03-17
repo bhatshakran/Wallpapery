@@ -4,14 +4,13 @@ import {
   getAuth,
   updateProfile,
   signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
 } from "firebase/auth";
-import { getDatabase, ref, set } from "firebase/database";
-import { getStorage, uploadBytes } from "firebase/storage";
+import { getStorage, ref, uploadBytes } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
   authDomain: process.env.REACT_APP_AUTH_DOMAIN,
-  databaseURL: process.env.REACT_APP_DATABASE_URL,
   projectId: process.env.REACT_APP_PROJECT_ID,
   appId: process.env.REACT_APP_APPID,
   storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
@@ -22,17 +21,15 @@ const firebaseConfig = {
 class Firebase {
   constructor() {
     const initialzedApp = app.initializeApp(firebaseConfig);
-    const database = getDatabase(initialzedApp);
 
-    this.auth = app.auth();
+    this.auth = getAuth();
   }
   doCreateUserWithEmailAndPassword = (email, password) =>
-    this.auth.createUserWithEmailAndPassword(email, password);
+    createUserWithEmailAndPassword(this.auth, email, password);
 
   doSignInWithEmailAndPassword = async (email, password) => {
-    const auth = getAuth();
     try {
-      const res = await signInWithEmailAndPassword(auth, email, password);
+      const res = await signInWithEmailAndPassword(this.auth, email, password);
       return res.user;
     } catch (err) {
       return err;
@@ -44,19 +41,17 @@ class Firebase {
   };
 
   updateUser = (updatedName, photoURL) => {
-    const auth = getAuth();
-
     try {
       if (updatedName) {
-        updateProfile(auth.currentUser, {
+        updateProfile(this.auth.currentUser, {
           displayName: updatedName,
         });
       } else if (photoURL) {
-        updateProfile(auth.currentUser, {
+        updateProfile(this.auth.currentUser, {
           photoURL,
         });
       } else {
-        updateProfile(auth.currentUser, {
+        updateProfile(this.auth.currentUser, {
           displayName: updatedName,
           photoURL,
         });
@@ -64,21 +59,20 @@ class Firebase {
     } catch (err) {
       console.log(err);
     }
-    return auth.currentUser;
+    return this.auth.currentUser;
   };
 
-  updateProfilePic = (picture) => {
-    console.log(picture);
-    // Create a root reference
-    const storage = getStorage();
+  updateProfilePic = async (picture) => {
+    // Get current username
+    const user = this.auth.currentUser;
 
-    const storageRef = ref(storage, "profilepics");
+    // Create a Storage Ref w/ uid
+    const storage = getStorage();
+    const storageRef = ref(storage, user.uid);
 
     // 'file' comes from the Blob or File API
-    uploadBytes(storageRef, picture).then((snapshot) => {
-      console.log(snapshot);
-      console.log("Uploaded a blob or file!");
-    });
+    const response = await uploadBytes(storageRef, picture);
+    return response;
   };
 }
 

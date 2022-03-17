@@ -15,8 +15,10 @@ export const uploadToFirebaseDB = createAsyncThunk(
   async (data) => {
     const { firebase, compressedFile } = data;
     try {
+      // upload new picture
       const response = await firebase.updateProfilePic(compressedFile);
       console.log(response);
+      // get new picture
       return response;
     } catch (err) {
       console.log(err);
