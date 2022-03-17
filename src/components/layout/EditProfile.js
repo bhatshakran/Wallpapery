@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import profile from "../../images/profile_user.jpeg";
 import { updatePictureAndUsername } from "../../redux/features/auth/auth";
 import imageCompression from "browser-image-compression";
 import { uploadToFirebaseDB } from "../../redux/features/Images/images";
 
 const EditProfile = ({ firebase }) => {
   const details = useSelector((state) => state.auth);
+  const imgurl = useSelector((state) => state.images.uploadDp);
   const dispatch = useDispatch();
   const { displayName } = details.user;
   const [updatedName, setUpdatedName] = useState(null);
@@ -65,7 +65,7 @@ const EditProfile = ({ firebase }) => {
       </div>
       <div className="flex justify-center w-full h-40 mt-24 rounded-full img_container">
         <img
-          src={profile}
+          src={imgurl}
           alt=""
           className="w-40 h-full border-2 rounded-full shadow-xl"
         />

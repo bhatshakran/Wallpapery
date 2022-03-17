@@ -6,7 +6,7 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from "firebase/auth";
-import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -73,6 +73,12 @@ class Firebase {
     // 'file' comes from the Blob or File API
     const response = await uploadBytes(storageRef, picture);
     return response;
+  };
+
+  getProfilePicUrl = async (picturename) => {
+    const storage = getStorage();
+    const res = await getDownloadURL(ref(storage, picturename));
+    return res;
   };
 }
 

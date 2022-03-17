@@ -1,10 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import profile from "../../images/profile_user.jpeg";
 
 const Profile = () => {
   const userdetails = useSelector((state) => state.auth.user);
+  const imgurl = useSelector((state) => state.images.uploadDp);
   const { displayName, email, phoneNumber, photoURL } = userdetails;
   return (
     <div className="min-h-screen px-8 pt-4 pb-10 mx-2 my-4 shadow-xl shadow-gray-400 rounded-3xl">
@@ -18,7 +18,7 @@ const Profile = () => {
       </div>
       <div className="flex justify-center w-full h-40 mt-24 rounded-full img_container">
         <img
-          src={profile}
+          src={imgurl}
           alt=""
           className="w-40 h-full border-2 rounded-full shadow-xl"
         />
