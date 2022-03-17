@@ -2,19 +2,59 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import profile from "../../images/profile_user.jpeg";
 import { updatePictureAndUsername } from "../../redux/features/auth/auth";
+import imageCompression from "browser-image-compression";
+import { uploadToFirebaseDB } from "../../redux/features/Images/images";
 
 const EditProfile = ({ firebase }) => {
   const details = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const { displayName } = details.user;
   const [updatedName, setUpdatedName] = useState(null);
+  const [myImg, setImg] = useState({});
 
   const handleChange = (e) => {
     setUpdatedName(e.target.value);
   };
 
-  const updatePicAndPassword = () => {
-    const data = { firebase, updatedName };
+  const handleImgChange = (e) => {
+    const selectedFile = e.target.files[0];
+    setImg(selectedFile);
+    console.log("originalFile instanceof Blob", myImg instanceof Blob); // true
+    console.log(`originalFile size ${myImg.size / 1024 / 1024} MB`);
+  };
+
+  const updatePicAndPassword = async () => {
+    // Compress the selected image if the user wants to change the profile picture
+    let data, compressedFile;
+    (async function () {
+      if (myImg) {
+        const options = {
+          maxSizeMB: 1,
+          maxWidthOrHeight: 1920,
+          useWebWorker: true,
+        };
+
+        try {
+          compressedFile = await imageCompression(myImg, options);
+          console.log(
+            "compressedFile instanceof Blob",
+            compressedFile instanceof Blob
+          ); // true
+          console.log(
+            `compressedFile size ${compressedFile.size / 1024 / 1024} MB`
+          );
+        } catch (err) {
+          console.log(err);
+        }
+      }
+      // Upload to firebase rdbms
+
+      const values = { firebase, compressedFile };
+      const res = dispatch(uploadToFirebaseDB(values));
+      // console.log(res);
+    })();
+
+    data = { firebase, updatedName };
     dispatch(updatePictureAndUsername(data));
   };
 
@@ -31,9 +71,13 @@ const EditProfile = ({ firebase }) => {
         />
       </div>
       <div className="flex flex-wrap justify-center w-full gap-2 pb-8 change_pp mt-11">
-        <div className="flex justify-center w-full text-xl text-stone-700 d_name">
-          <label className="file_upload">
-            <input type="file" accept="image/png, image/jpeg" />
+        <div className="flex justify-center w-full text-stone-700 d_name">
+          <label className="file_upload text-md">
+            <input
+              type="file"
+              accept="image/png, image/jpeg"
+              onChange={handleImgChange}
+            />
             Change Profile Picture
           </label>
         </div>

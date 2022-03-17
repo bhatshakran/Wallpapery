@@ -6,6 +6,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { getDatabase, ref, set } from "firebase/database";
+import { getStorage, uploadBytes } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -64,6 +65,20 @@ class Firebase {
       console.log(err);
     }
     return auth.currentUser;
+  };
+
+  updateProfilePic = (picture) => {
+    console.log(picture);
+    // Create a root reference
+    const storage = getStorage();
+
+    const storageRef = ref(storage, "profilepics");
+
+    // 'file' comes from the Blob or File API
+    uploadBytes(storageRef, picture).then((snapshot) => {
+      console.log(snapshot);
+      console.log("Uploaded a blob or file!");
+    });
   };
 }
 

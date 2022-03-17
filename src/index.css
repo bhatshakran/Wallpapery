@@ -8,9 +8,9 @@
     }
 
     .file_upload{
-        @apply border border-gray-200 inline-block cursor-pointer px-2 py-4 bg-blue-500 text-white rounded
+        @apply inline-block p-2 text-white bg-blue-500 border border-gray-200 rounded cursor-pointer  
     }
     input[type='file']{
-        @apply hidden
+        @apply hidden;
     }
 }

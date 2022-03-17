@@ -10,12 +10,28 @@ export const getImages = createAsyncThunk("api/images", async () => {
   }
 });
 
+export const uploadToFirebaseDB = createAsyncThunk(
+  "api/images/updatedp",
+  async (data) => {
+    const { firebase, compressedFile } = data;
+    try {
+      const response = await firebase.updateProfilePic(compressedFile);
+      console.log(response);
+      return response;
+    } catch (err) {
+      console.log(err);
+      return err;
+    }
+  }
+);
+
 // Images Slice
 
 export const ImageSlice = createSlice({
   name: "Images",
   initialState: {
     Imgs: [],
+    uploadDp: "",
     loading: true,
   },
   reducers: {},
@@ -23,6 +39,10 @@ export const ImageSlice = createSlice({
     [getImages.fulfilled]: (state, action) => {
       state.Imgs = action.payload.data;
       state.loading = false;
+    },
+    [uploadToFirebaseDB.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.uploadDp = action.payload;
     },
   },
 });
