@@ -1,6 +1,10 @@
 import app from "firebase/compat/app";
 import "firebase/compat/auth";
-import { getAuth, updateProfile } from "firebase/auth";
+import {
+  getAuth,
+  updateProfile,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { getDatabase, ref, set } from "firebase/database";
 
 const firebaseConfig = {
@@ -24,8 +28,15 @@ class Firebase {
   doCreateUserWithEmailAndPassword = (email, password) =>
     this.auth.createUserWithEmailAndPassword(email, password);
 
-  doSignInWithEmailAndPassword = (email, password) =>
-    this.auth.signInWithEmailAndPassword(email, password);
+  doSignInWithEmailAndPassword = async (email, password) => {
+    const auth = getAuth();
+    try {
+      const res = await signInWithEmailAndPassword(auth, email, password);
+      return res.user;
+    } catch (err) {
+      return err;
+    }
+  };
 
   logOut = () => {
     this.auth.signOut();
@@ -33,7 +44,6 @@ class Firebase {
 
   updateUser = (updatedName, photoURL) => {
     const auth = getAuth();
-    console.log("running");
 
     try {
       if (updatedName) {
