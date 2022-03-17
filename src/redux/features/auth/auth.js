@@ -27,22 +27,37 @@ export const logOutUser = createAsyncThunk(
   }
 );
 
-// update user name and user picture
-export const updatePictureAndUsername = createAsyncThunk(
-  "/api/auth/usernameandpic",
+// update user name only
+export const updateUsername = createAsyncThunk(
+  "/api/auth/updateusername",
   async (data) => {
-    const { firebase, updatedName } = data;
+    const { updatedName, firebase } = data;
+      try {
+        const res = firebase.updateUser(updatedName);
+        return res;
+      } catch (error) {
+        console.log(error);
+        return error;
+      }
 
-    try {
-      const res = firebase.updateUser(updatedName);
-
-      return res;
-    } catch (error) {
-      console.log(error);
-      return error;
-    }
   }
 );
+
+
+// update only picture 
+export const updateUserPicture = createAsyncThunk('/api/updateuserpicture', async(data) => {
+  const {firebase, compressedFile} = data;
+try {
+  // upload new picture
+  const response = await firebase.updateProfilePic(compressedFile);
+  // get new picture
+  const imgUrl = await firebase.getProfilePicUrl(response.metadata.name);
+  localStorage.setItem("imgUrl", imgUrl);
+  return imgUrl
+} catch (err) {
+  console.log(err)
+}
+})
 
 // login slice
 export const loginSlice = createSlice({
@@ -54,6 +69,7 @@ export const loginSlice = createSlice({
       ? JSON.parse(localStorage.getItem("user"))
       : {},
     token: localStorage.getItem("token") ? localStorage.getItem("token") : "",
+    dp: localStorage.getItem("imgUrl") ? localStorage.getItem("imgUrl") : "",
   },
   reducers: {},
   extraReducers: {
@@ -71,10 +87,14 @@ export const loginSlice = createSlice({
       state.loading = false;
       state.user = {};
     },
-    [updatePictureAndUsername.fulfilled]: (state, action) => {
+    [updateUsername.fulfilled]: (state, action) => {
       state.loading = false;
       state.user = action.payload;
     },
+    [updateUserPicture.fulfilled] :(state,action) => {
+      state.loading = false;
+      state.dp = action.payload
+    }
   },
 });
 

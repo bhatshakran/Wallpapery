@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updatePictureAndUsername } from "../../redux/features/auth/auth";
+import {
+  updateUsername,
+  updateUserPicture,
+} from "../../redux/features/auth/auth";
 import imageCompression from "browser-image-compression";
-import { uploadToFirebaseDB } from "../../redux/features/Images/images";
 
 const EditProfile = ({ firebase }) => {
   const details = useSelector((state) => state.auth);
-  const imgurl = useSelector((state) => state.images.uploadDp);
+  const imgurl = useSelector((state) => state.auth.dp);
   const dispatch = useDispatch();
   const { displayName } = details.user;
   const [updatedName, setUpdatedName] = useState(null);
-  const [myImg, setImg] = useState({});
 
   const handleChange = (e) => {
     setUpdatedName(e.target.value);
@@ -18,44 +19,43 @@ const EditProfile = ({ firebase }) => {
 
   const handleImgChange = (e) => {
     const selectedFile = e.target.files[0];
-    setImg(selectedFile);
-    console.log("originalFile instanceof Blob", myImg instanceof Blob); // true
-    console.log(`originalFile size ${myImg.size / 1024 / 1024} MB`);
+
+    console.log("originalFile instanceof Blob", selectedFile instanceof Blob); // true
+    console.log(`originalFile size ${selectedFile.size / 1024 / 1024} MB`);
+
+    // update profile pic
+
+    const options = {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 1920,
+      useWebWorker: true,
+    };
+
+    (async function () {
+      try {
+        // Compress the selected image if the user wants to change the profile picture
+        console.log(selectedFile);
+        let compressedFile = await imageCompression(selectedFile, options);
+        console.log(
+          "compressedFile instanceof Blob",
+          compressedFile instanceof Blob
+        ); // true
+        console.log(
+          `compressedFile size ${compressedFile.size / 1024 / 1024} MB`
+        );
+
+        // dispatch the action
+        const data = { firebase, compressedFile };
+        dispatch(updateUserPicture(data));
+      } catch (err) {
+        console.log(err);
+      }
+    })();
   };
 
-  const updatePicAndPassword = async () => {
-    // Compress the selected image if the user wants to change the profile picture
-    let data, compressedFile;
-    (async function () {
-      if (myImg) {
-        const options = {
-          maxSizeMB: 1,
-          maxWidthOrHeight: 1920,
-          useWebWorker: true,
-        };
-
-        try {
-          compressedFile = await imageCompression(myImg, options);
-          console.log(
-            "compressedFile instanceof Blob",
-            compressedFile instanceof Blob
-          ); // true
-          console.log(
-            `compressedFile size ${compressedFile.size / 1024 / 1024} MB`
-          );
-        } catch (err) {
-          console.log(err);
-        }
-      }
-      // Upload to firebase rdbms
-
-      const values = { firebase, compressedFile };
-      const res = dispatch(uploadToFirebaseDB(values));
-      // console.log(res);
-    })();
-
-    data = { firebase, updatedName };
-    dispatch(updatePictureAndUsername(data));
+  const handleUsernameChange = async () => {
+    const data = { firebase, updatedName };
+    dispatch(updateUsername(data));
   };
 
   return (
@@ -93,9 +93,9 @@ const EditProfile = ({ firebase }) => {
         <div className="update_btn">
           <button
             className="px-4 py-2 text-white bg-blue-500 rounded-sm"
-            onClick={updatePicAndPassword}
+            onClick={handleUsernameChange}
           >
-            Update Profile Picture and Username
+            Update Username
           </button>
         </div>
       </div>

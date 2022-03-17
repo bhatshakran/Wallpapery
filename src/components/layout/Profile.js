@@ -4,8 +4,9 @@ import { Link } from "react-router-dom";
 
 const Profile = () => {
   const userdetails = useSelector((state) => state.auth.user);
-  const imgurl = useSelector((state) => state.images.uploadDp);
+  const imgurl = useSelector((state) => state.auth.dp);
   const { displayName, email, phoneNumber, photoURL } = userdetails;
+
   return (
     <div className="min-h-screen px-8 pt-4 pb-10 mx-2 my-4 shadow-xl shadow-gray-400 rounded-3xl">
       <div className="flex flex-wrap justify-center w-full gap-10 heading">
