@@ -8,9 +8,9 @@ const Profile = () => {
   const { displayName, email, phoneNumber, photoURL } = userdetails;
 
   return (
-    <div className="min-h-screen px-8 pt-4 pb-10 mx-2 my-4 shadow-xl shadow-gray-400 rounded-3xl">
+    <div className="h-auto px-8 pt-16 pb-10 mx-2 my-4 ">
       <div className="flex flex-wrap justify-center w-full gap-10 heading">
-        <div className="font-mono text-4xl">Profile</div>
+        <h1 className="">Profile</h1>
         <div className="edit_btn">
           <button className="px-4 py-2 text-white bg-blue-500 rounded-sm">
             <Link to="/edit_profile">Edit profile</Link>
@@ -33,8 +33,8 @@ const Profile = () => {
         </div>
       </div>
       {/* info container starts here */}
-      <div className="flex flex-wrap h-auto p-4 mx-4 mt-4 bg-white border-gray-200 shadow-sm lg:flex-nowrap gap-y-10 info_container rounded-3xl">
-        <div className="flex flex-wrap justify-center w-full py-4 text-gray-500 bg-gray-200 lg:mr-2 lg:w-1/3 about rounded-3xl">
+      <div className="flex flex-wrap h-auto p-4 mx-4 mt-4 border-gray-200 shadow-sm lg:flex-nowrap gap-y-10 info_container rounded-3xl">
+        <div className="flex flex-wrap justify-center w-full py-4 text-gray-500 lg:mr-2 lg:w-1/3 about rounded-3xl">
           <h1 className="font-mono text-2xl">About</h1>
           <p className="mx-4 mb-4 text-sm">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita
@@ -42,10 +42,10 @@ const Profile = () => {
             Corporis, repellendus quae.
           </p>
         </div>
-        <div className="flex flex-wrap justify-center w-full py-4 text-gray-500 bg-gray-200 lg:mr-2 lg:w-1/3 hobbies rounded-3xl">
+        <div className="flex flex-wrap justify-center w-full py-4 text-gray-500 lg:mr-2 lg:w-1/3 hobbies rounded-3xl">
           <h1 className="font-mono text-2xl">Photos</h1>
         </div>
-        <div className="flex flex-wrap justify-center w-full py-4 text-gray-500 bg-gray-200 lg:w-1/3 photo_liked rounded-3xl">
+        <div className="flex flex-wrap justify-center w-full py-4 text-gray-500 lg:w-1/3 photo_liked rounded-3xl">
           <h1 className="w-full font-mono text-2xl text-center">Hobbies</h1>
           <p className="mx-4 mb-4 text-sm">
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ducimus,

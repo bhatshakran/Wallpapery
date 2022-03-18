@@ -3,8 +3,19 @@
 @tailwind utilities;
 
 @layer base {
+
+    html,body{
+        @apply bg-back-color
+    }
+    h1{
+        @apply text-text-sec text-6xl font-mono
+    }
+    p{
+        @apply text-text-sec text-lg font-mono 
+    }
+
     .form-control{
-        @apply w-3/4 px-2 py-2 mx-auto mt-2 text-sm border border-gray-200 rounded-sm focus:outline-none focus:border-gray-300 bg-gray-50;
+        @apply w-full px-2 py-2 mx-2 mt-4 text-lg bg-transparent border-b-2 border-gray-200 rounded-sm focus:outline-none focus:border-blue-400 ;
     }
 
     .file_upload{
@@ -12,5 +23,8 @@
     }
     input[type='file']{
         @apply hidden;
+    }
+    label{
+        @apply  text-text-primary 
     }
 }

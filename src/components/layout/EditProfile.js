@@ -74,44 +74,73 @@ const EditProfile = ({ firebase }) => {
     );
   } else
     return (
-      <div className="min-h-screen px-8 pt-4 pb-10 mx-2 my-4 shadow-xl shadow-gray-400 rounded-3xl">
+      <div className="h-auto px-8 pt-16 pb-10 mx-2 my-4 ">
         <div className="flex flex-wrap justify-center w-full gap-10 heading">
-          <div className="font-mono text-4xl">Edit Profile</div>
+          <h1>Edit Profile</h1>
         </div>
-        <div className="flex justify-center w-full h-40 mt-24 rounded-full img_container">
-          <img
-            src={imgurl}
-            alt=""
-            className="w-40 h-full border-2 rounded-full shadow-xl"
-          />
-        </div>
-        <div className="flex flex-wrap justify-center w-full gap-2 pb-8 change_pp mt-11">
-          <div className="flex justify-center w-full text-stone-700 d_name">
-            <label className="file_upload text-md">
-              <input
-                type="file"
-                accept="image/png, image/jpeg"
-                onChange={handleImgChange}
+
+        <div className="flex flex-wrap justify-between w-full gap-2 mt-20 flex-column lg:flex-nowrap panecontainer">
+          {/* left pane */}
+          <div className="w-full rounded-sm shadow-sm lg:w-1/2 leftpane">
+            <div className="flex justify-center w-full mt-24 rounded-full h-60 img_container">
+              <img
+                src={imgurl}
+                alt=""
+                className="h-full border-2 rounded-full shadow-xl w-60"
               />
-              Change Profile Picture
-            </label>
+            </div>
+            <div className="flex flex-wrap justify-center w-full gap-2 pb-8 change_pp mt-11">
+              <div className="flex justify-center w-full text-stone-700 d_name">
+                <label className="file_upload text-md">
+                  <input
+                    type="file"
+                    accept="image/png, image/jpeg"
+                    onChange={handleImgChange}
+                  />
+                  Change Profile Picture
+                </label>
+              </div>
+            </div>
           </div>
-          <div className="flex justify-center w-full text-sm username text-stone-500">
-            <input
-              type="text"
-              placeholder="Change Username"
-              className="form-control"
-              onChange={handleChange}
-              defaultValue={displayName ? displayName : "NO username"}
-            />
-          </div>
-          <div className="update_btn">
-            <button
-              className="px-4 py-2 text-white bg-blue-500 rounded-sm"
-              onClick={handleUsernameChange}
-            >
-              Update Username
-            </button>
+          {/* right pane */}
+          <div className="w-full p-4 rounded-sm shadow-sm lg:w-1/2 rightpane">
+            <div className="flex items-baseline w-full text-lg username text-stone-500">
+              <label htmlFor="username">Username:</label>
+              <input
+                type="text"
+                placeholder="Edit Username"
+                className="form-control"
+                onChange={handleChange}
+                defaultValue={displayName ? displayName : "NO username"}
+              />
+            </div>
+
+            <div className="flex items-baseline w-full text-lg username text-stone-500">
+              <label htmlFor="hobbies">Hobbies:</label>
+              <input
+                type="text"
+                placeholder="Edit Hobbies"
+                className="form-control"
+              />
+            </div>
+            <div className="flex items-center w-full mt-4 text-lg username text-stone-500">
+              <label htmlFor="about">About:</label>
+              <textarea
+                name=""
+                id=""
+                rows="6"
+                placeholder="Edit About"
+                className="w-full px-2 ml-2 border-2 resize-none focus:outline-none focus:border-blue-800"
+              ></textarea>
+            </div>
+            <div className="mt-12 update_btn">
+              <button
+                className="px-4 py-2 text-white bg-blue-500 rounded-sm"
+                onClick={handleUsernameChange}
+              >
+                Update Details
+              </button>
+            </div>
           </div>
         </div>
       </div>
