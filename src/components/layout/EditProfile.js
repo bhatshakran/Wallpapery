@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  updateAddtionalUserDetails,
   updateUsername,
   updateUserPicture,
 } from "../../redux/features/auth/auth";
@@ -15,9 +16,17 @@ const EditProfile = ({ firebase }) => {
   const dispatch = useDispatch();
   const { displayName } = details.user;
   const [updatedName, setUpdatedName] = useState(null);
+  const [updatedHobbies, setupdatedHobbies] = useState(null);
+  const [updatedAbout, setupdatedAbout] = useState(null);
 
-  const handleChange = (e) => {
+  const handleNameChange = (e) => {
     setUpdatedName(e.target.value);
+  };
+  const handleHobbiesChange = (e) => {
+    setupdatedHobbies(e.target.value);
+  };
+  const handleAboutChange = (e) => {
+    setupdatedAbout(e.target.value);
   };
 
   const handleImgChange = (e) => {
@@ -56,10 +65,16 @@ const EditProfile = ({ firebase }) => {
     })();
   };
 
-  const handleUsernameChange = async () => {
+  const handleUserDetailsChange = async () => {
     try {
-      const data = { firebase, updatedName };
-      dispatch(updateUsername(data));
+      if (updatedName !== null) {
+        const data = { firebase, updatedName };
+        dispatch(updateUsername(data));
+      } else {
+        // update other details
+        const additionalData = { firebase, updatedHobbies, updatedAbout };
+        dispatch(updateAddtionalUserDetails(additionalData));
+      }
     } catch (error) {
       console.log(error);
     }
@@ -110,7 +125,7 @@ const EditProfile = ({ firebase }) => {
                 type="text"
                 placeholder="Edit Username"
                 className="form-control"
-                onChange={handleChange}
+                onChange={handleNameChange}
                 defaultValue={displayName ? displayName : "NO username"}
               />
             </div>
@@ -119,6 +134,7 @@ const EditProfile = ({ firebase }) => {
               <label htmlFor="hobbies">Hobbies:</label>
               <input
                 type="text"
+                onChange={handleHobbiesChange}
                 placeholder="Edit Hobbies"
                 className="form-control"
               />
@@ -130,13 +146,14 @@ const EditProfile = ({ firebase }) => {
                 id=""
                 rows="2"
                 placeholder="Edit About"
+                onChange={handleAboutChange}
                 className="w-full px-2 ml-2 bg-transparent border-b-2 resize-none focus:outline-none focus:border-blue-400"
               ></textarea>
             </div>
             <div className="mt-12 update_btn">
               <button
                 className="px-4 py-2 text-white bg-blue-500 rounded-sm"
-                onClick={handleUsernameChange}
+                onClick={handleUserDetailsChange}
               >
                 Update Details
               </button>

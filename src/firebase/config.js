@@ -7,10 +7,12 @@ import {
   createUserWithEmailAndPassword,
 } from "firebase/auth";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import { getDatabase, ref as DbRef, set } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
   authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  databaseUrl: process.env.REACT_APP_DATABASE_URL,
   projectId: process.env.REACT_APP_PROJECT_ID,
   appId: process.env.REACT_APP_APPID,
   storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
@@ -20,9 +22,10 @@ const firebaseConfig = {
 
 class Firebase {
   constructor() {
-    const initialzedApp = app.initializeApp(firebaseConfig);
+    const myapp = app.initializeApp(firebaseConfig);
 
     this.auth = getAuth();
+    this.database = getDatabase(myapp, process.env.REACT_APP_DATABASE_URL);
   }
   doCreateUserWithEmailAndPassword = (email, password) =>
     createUserWithEmailAndPassword(this.auth, email, password);
@@ -80,6 +83,38 @@ class Firebase {
     const res = await getDownloadURL(ref(storage, picturename));
     return res;
   };
+
+  updateAdditionalUserDetails = async (parameters) => {
+    console.log(this.database);
+    const user = this.auth.currentUser;
+    const { updatedHobbies, updatedAbout } = parameters;
+
+    set(DbRef(this.database, "users/" + user.uid), {
+      username: user.displayName,
+      email: user.email,
+      profile_picture: user.photoURL,
+    });
+
+    // if (updatedHobbies !== null) {
+    //   // update only hobbies
+    //   set(ref(this.database, "users/" + user.uid), {
+    //     hobbies: updatedHobbies,
+    //   });
+    // } else if (updatedAbout != null) {
+    //   // update only about
+    //   set(ref(this.database, "users/" + user.uid), {
+    //     about: updatedAbout,
+    //   });
+    // } else if (updatedHobbies !== null && updatedAbout != null) {
+    //   // update both the properties
+    //   set(ref(this.database, "users/" + user.uid), {
+    //     hobbies: updatedHobbies,
+    //     about: updatedAbout,
+    //   });
+  };
+  // } catch (err) {
+  //   return err;
+  // }
 }
 
 export default Firebase;

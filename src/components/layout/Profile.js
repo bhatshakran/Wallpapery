@@ -12,9 +12,11 @@ const Profile = () => {
       <div className="flex flex-wrap items-center justify-center w-full gap-10 heading">
         <h1 className="">Profile</h1>
         <div className="edit_btn">
-          <button className="px-4 py-2 text-white bg-blue-500 rounded-sm">
-            <Link to="/edit_profile">Edit profile</Link>
-          </button>
+          <Link to="/edit_profile">
+            <button className="px-4 py-2 text-white bg-blue-500 rounded-sm">
+              Edit profile
+            </button>
+          </Link>
         </div>
       </div>
       <div className="flex justify-center w-full h-40 mt-24 rounded-full img_container">

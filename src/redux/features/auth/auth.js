@@ -44,6 +44,24 @@ export const updateUsername = createAsyncThunk(
 );
 
 
+
+export const updateAddtionalUserDetails = createAsyncThunk(
+  "/api/auth/updateadditionaldetails",
+  async (data) => {
+    try {
+      const { firebase, updatedHobbies, updatedAbout } = data;
+      const parameters = { updatedHobbies, updatedAbout };
+      const res = await firebase.updateAdditionalUserDetails(parameters);
+      console.log(res);
+      return res;
+    } catch (err) {
+      console.log(err);
+      return err;
+    }
+  }
+);
+
+
 // update only picture 
 export const updateUserPicture = createAsyncThunk('/api/updateuserpicture', async(data) => {
   const {firebase, compressedFile} = data;
