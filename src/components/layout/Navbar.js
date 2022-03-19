@@ -21,7 +21,7 @@ const Navbar = ({ firebase }) => {
   };
 
   return (
-    <nav className="flex flex-wrap items-center justify-between w-full h-24 px-5 py-4 border-b border-gray-200 shadow-sm">
+    <nav className="flex flex-wrap items-center justify-between w-full h-24 px-5 py-4 border-b border-gray-200 ">
       <div className="font-mono text-2xl text-text-sec bold lg:text-4xl nav-brand">
         <Link to="/">
           {/* <img src={wallpapery} alt="" className="h-36 w-80" /> */}

@@ -8,10 +8,16 @@
         @apply bg-back-color
     }
     h1{
-        @apply text-text-sec text-6xl font-mono
+        @apply text-text-primary text-6xl font-mono
+    }
+    h2{
+        @apply text-4xl font-mono
+    }
+    h3{
+        @apply text-3xl
     }
     p{
-        @apply text-text-sec text-lg font-mono 
+        @apply text-text-sec font-sans text-sm mt-4 h-full
     }
 
     .form-control{

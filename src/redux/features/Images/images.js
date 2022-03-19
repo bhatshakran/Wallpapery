@@ -5,7 +5,7 @@ export const getImages = createAsyncThunk(
   "api/images",
   async (no, thunkAPI) => {
     try {
-      const res = await ImagesClient.get(`photos?per_page=5&page=${no}`);
+      const res = await ImagesClient.get(`photos?per_page=25&page=${no}`);
 
       // get current pics from the store
       const imgs = thunkAPI.getState().images.Imgs;

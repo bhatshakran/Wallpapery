@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { Suspense, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import ImgCard from "./ImgCard";
 import Masonry from "react-masonry-css";
 import "./Grid.css";
+import avatar from "../../images/avatar.png";
+import ImgCard from "./ImgCard";
 
 const ImageGrid = ({ data, change, no }) => {
   const loading = useSelector((state) => state.images.loading);
@@ -33,9 +34,9 @@ const ImageGrid = ({ data, change, no }) => {
   }, [lastElement]);
 
   const breakpointColumnsObj = {
-    default: 4,
-    2000: 3,
-    700: 2,
+    default: 5,
+    1100: 4,
+    900: 2,
     500: 1,
   };
 

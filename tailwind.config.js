@@ -3,10 +3,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "back-color": "#062C30",
-        "card-color": "#05595B",
-        "text-primary": "#F7E2E2",
-        "text-sec": "#F5F5F5",
+        "back-color": "#F5F5F5",
+        "card-color": "#F7E2E2",
+        "text-primary": "#05595B",
+        "text-sec": "#062C30",
       },
     },
   },
