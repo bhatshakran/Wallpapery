@@ -7,7 +7,15 @@ import {
   createUserWithEmailAndPassword,
 } from "firebase/auth";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
-import { getDatabase, ref as DbRef, set } from "firebase/database";
+import {
+  limitToFirst,
+  getDatabase,
+  query,
+  ref as DbRef,
+  set,
+  onValue,
+  update,
+} from "firebase/database";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -85,36 +93,38 @@ class Firebase {
   };
 
   updateAdditionalUserDetails = async (parameters) => {
-    console.log(this.database);
     const user = this.auth.currentUser;
+    const { uid } = user;
     const { updatedHobbies, updatedAbout } = parameters;
 
-    set(DbRef(this.database, "users/" + user.uid), {
-      username: user.displayName,
-      email: user.email,
-      profile_picture: user.photoURL,
-    });
+    const getUser = DbRef(this.database, "users/" + uid);
+    onValue(getUser, (snapshot) => {
+      if (snapshot.exists()) {
+        let updates = {};
+        if (updatedHobbies !== null) {
+          updates["hobbies"] = updatedHobbies;
+        }
+        if (updatedAbout !== null) {
+          updates["about"] = updatedAbout;
+        }
 
-    // if (updatedHobbies !== null) {
-    //   // update only hobbies
-    //   set(ref(this.database, "users/" + user.uid), {
-    //     hobbies: updatedHobbies,
-    //   });
-    // } else if (updatedAbout != null) {
-    //   // update only about
-    //   set(ref(this.database, "users/" + user.uid), {
-    //     about: updatedAbout,
-    //   });
-    // } else if (updatedHobbies !== null && updatedAbout != null) {
-    //   // update both the properties
-    //   set(ref(this.database, "users/" + user.uid), {
-    //     hobbies: updatedHobbies,
-    //     about: updatedAbout,
-    //   });
+        const updatedProp = update(
+          DbRef(this.database, "users/" + uid),
+          updates
+        );
+      } else {
+        //   console.log("create new user");
+        set(DbRef(this.database, "users/" + user.uid), {
+          username: user.displayName,
+          email: user.email,
+          profile_picture: user.photoURL,
+          hobbies: updatedHobbies ? updatedHobbies : null,
+          about: updatedAbout ? updatedAbout : null,
+        });
+      }
+    });
   };
-  // } catch (err) {
-  //   return err;
-  // }
 }
+
 
 export default Firebase;
