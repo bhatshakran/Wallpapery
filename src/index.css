@@ -11,13 +11,13 @@
         @apply text-text-primary text-6xl font-mono
     }
     h2{
-        @apply text-4xl font-mono
+        @apply text-4xl font-mono w-full  max-h-fit
     }
     h3{
         @apply text-3xl
     }
     p{
-        @apply text-text-sec font-sans text-sm mt-4 h-full
+        @apply text-text-sec font-sans text-sm mt-4 max-h-full 
     }
 
     .form-control{
@@ -31,6 +31,6 @@
         @apply hidden;
     }
     label{
-        @apply  text-text-primary 
+        @apply  text-text-sec 
     }
 }

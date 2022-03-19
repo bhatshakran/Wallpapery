@@ -33,8 +33,8 @@ const Profile = () => {
         </div>
       </div>
       {/* info container starts here */}
-      <div className="flex flex-wrap h-auto p-4 mx-4 mt-4 lg:flex-nowrap gap-x-14 info_container rounded-3xl">
-        <div className="flex flex-wrap w-full text-gray-500 lg:mr-2 lg:w-1/3 about rounded-3xl">
+      <div className="flex flex-wrap h-auto p-4 mx-4 mt-4 lg:flex-nowrap gap-y-16 gap-x-14 info_container rounded-3xl">
+        <div className="flex flex-wrap w-full text-gray-500 lg:mr-2 lg:w-1/3 about ">
           <h2 className="">About</h2>
           <p className="">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita
@@ -42,10 +42,10 @@ const Profile = () => {
             Corporis, repellendus quae.
           </p>
         </div>
-        <div className="flex flex-wrap w-full h-full text-gray-500 lg:mr-2 lg:w-1/3 hobbies rounded-3xl">
+        <div className="flex flex-wrap w-full h-full text-gray-500 lg:mr-2 lg:w-1/3 hobbies ">
           <h2 className="">Photos</h2>
         </div>
-        <div className="flex flex-wrap w-full text-gray-500 lg:w-1/3 photo_liked rounded-3xl">
+        <div className="flex flex-wrap w-full text-gray-500 lg:mr-2 lg:w-1/3 about ">
           <h2 className="">Hobbies</h2>
           <p className="">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse

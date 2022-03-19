@@ -1,8 +1,7 @@
-import React, { Suspense, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import Masonry from "react-masonry-css";
+// import Masonry from "react-masonry-css";
 import "./Grid.css";
-import avatar from "../../images/avatar.png";
 import ImgCard from "./ImgCard";
 
 const ImageGrid = ({ data, change, no }) => {
@@ -11,6 +10,7 @@ const ImageGrid = ({ data, change, no }) => {
 
   const observer = useRef(
     new IntersectionObserver((entries) => {
+      console.log(entries);
       const first = entries[0];
       if (first.isIntersecting) {
         change((no) => no + 1);
@@ -33,6 +33,8 @@ const ImageGrid = ({ data, change, no }) => {
     };
   }, [lastElement]);
 
+  console.log(lastElement);
+
   const breakpointColumnsObj = {
     default: 5,
     1100: 4,
@@ -44,21 +46,21 @@ const ImageGrid = ({ data, change, no }) => {
     return <div>Loading</div>;
   } else {
     return (
-      <Masonry
-        breakpointCols={breakpointColumnsObj}
-        className="my-masonry-grid"
-        columnClassName="my-masonry-grid_column"
-      >
+      // <Masonry
+      //   breakpointCols={breakpointColumnsObj}
+      //   className="my-masonry-grid"
+      //   columnClassName="my-masonry-grid_column"
+      // >
+      <div className="grid grid-cols-1 lg:grid-cols-3">
         {data.Imgs.map((el, i) => {
-          return i === data.Imgs.length - 1 && !loading ? (
-            <div ref={setLastElement} key={i - 1}>
-              <ImgCard card_data={el} />
-            </div>
+          return i === data.Imgs.length - 1 && !loading && no <= 25 ? (
+            <ImgCard card_data={el} ref={setLastElement} key={i - 1} />
           ) : (
             <ImgCard card_data={el} key={i - 1} />
           );
         })}
-      </Masonry>
+      </div>
+      // </Masonry>
     );
   }
 };

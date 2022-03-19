@@ -5,14 +5,14 @@ export const getImages = createAsyncThunk(
   "api/images",
   async (no, thunkAPI) => {
     try {
-      const res = await ImagesClient.get(`photos?per_page=25&page=${no}`);
+      const res = await ImagesClient.get(`photos?per_page=10&page=${no}`);
 
       // get current pics from the store
       const imgs = thunkAPI.getState().images.Imgs;
       const combinedImgs = [...imgs, ...res.data];
-      if (imgs.length === 0) {
+      if (no === 1) {
         return res.data;
-      } else {
+      } else if (no > 1 && no <= 25) {
         return combinedImgs;
       }
     } catch (err) {

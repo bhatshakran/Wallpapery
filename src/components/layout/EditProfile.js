@@ -128,9 +128,9 @@ const EditProfile = ({ firebase }) => {
               <textarea
                 name=""
                 id=""
-                rows="6"
+                rows="2"
                 placeholder="Edit About"
-                className="w-full px-2 ml-2 border-2 resize-none focus:outline-none focus:border-blue-800"
+                className="w-full px-2 ml-2 bg-transparent border-b-2 resize-none focus:outline-none focus:border-blue-400"
               ></textarea>
             </div>
             <div className="mt-12 update_btn">
