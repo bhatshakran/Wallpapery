@@ -7,9 +7,11 @@ import { getImages } from "../../redux/features/Images/images";
 import { debounce } from "lodash";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import ImgCard from "../layout/ImgCard";
+import { useNavigate } from "react-router-dom";
 
 const Homepage = () => {
   const TOTAL_PAGES = 25;
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const data = useSelector((state) => state.images);
   const loading = useSelector((state) => state.images.loading);
@@ -22,13 +24,16 @@ const Homepage = () => {
 
   const observer = useRef(
     new IntersectionObserver((entries) => {
-      console.log(entries);
       const first = entries[0];
       if (first.isIntersecting && first.intersectionRatio !== 1) {
         changePageNo((no) => no + 1);
       }
     })
   );
+
+  const goToPictureRoute = (id) => {
+    navigate(`/pictures/${id}`);
+  };
 
   useEffect(() => {
     const currentElement = lastElement;
@@ -46,12 +51,14 @@ const Homepage = () => {
   }, [lastElement]);
 
   useEffect(() => {
-    if (pageNum <= TOTAL_PAGES) {
-      console.log("ran");
+    let mounted = true;
+    if ((pageNum <= TOTAL_PAGES) & mounted) {
       const debouncedFunc = debounce(() => dispatch(getImages(pageNum)), 100);
       debouncedFunc();
       // dispatch(getImages(pageNum));
     }
+
+    return () => (mounted = false);
   }, [pageNum]);
 
   if (loading) {
@@ -68,9 +75,13 @@ const Homepage = () => {
               return i === data.Imgs.length - 1 &&
                 !loading &&
                 TOTAL_PAGES <= 25 ? (
-                <ImgCard card_data={el} ref={setLastElement} key={i - 1} />
+                <div key={i - 1} onClick={goToPictureRoute}>
+                  <ImgCard card_data={el} ref={setLastElement} />
+                </div>
               ) : (
-                <ImgCard card_data={el} key={i - 1} />
+                <div key={i - 1} onClick={() => goToPictureRoute(el.id)}>
+                  <ImgCard card_data={el} />
+                </div>
               );
             })}
           </Masonry>

@@ -8,6 +8,7 @@ import Profile from "./components/layout/Profile";
 import EditProfile from "./components/layout/EditProfile";
 import { useSelector } from "react-redux";
 import { FirebaseContext } from "./firebase";
+import Picture from "./components/layout/Picture";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
               </RequireAuth>
             }
           />
+          <Route path="/pictures/:slug" element={<Picture />} />
         </Routes>
       </div>
     </Router>
