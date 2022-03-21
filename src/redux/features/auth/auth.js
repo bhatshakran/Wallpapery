@@ -82,7 +82,7 @@ export const getUserFile = createAsyncThunk('/api/getuserfile', async(data) => {
   try {
     const {firebase, uid} = data
     const res = await firebase.getUserDataFile(uid);
-    console.log(res)
+    return res;
   } catch (err) {
     console.log(err)
   }
