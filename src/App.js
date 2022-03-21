@@ -24,7 +24,9 @@ function App() {
             path="/profile"
             element={
               <RequireAuth redirectTo="/login">
-                <Profile />
+                <FirebaseContext.Consumer>
+                  {(firebase) => <Profile firebase={firebase} />}
+                </FirebaseContext.Consumer>
               </RequireAuth>
             }
           />

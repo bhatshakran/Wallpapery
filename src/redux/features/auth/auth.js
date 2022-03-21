@@ -137,10 +137,12 @@ export const loginSlice = createSlice({
       state.loading = false;
       state.dp = action.payload;
     },
+
     [getUserFile.fulfilled]: (state, action) => {
       state.loading = false;
-      state.additionalUserData = action.payload
+      state.additionalUserData = action.payload;
     },
+
     [updateAddtionalUserDetails.fulfilled]: (state, action) => {
       state.loading = false;
       state.additionalUserData = action.payload;

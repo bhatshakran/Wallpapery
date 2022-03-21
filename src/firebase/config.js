@@ -125,7 +125,7 @@ class Firebase {
     const docSnap = await getDoc(userRef);
 
     if (docSnap.exists()) {
-      return { updatedUser: docSnap.data() };
+      return { userFile: docSnap.data() };
     } else {
       // doc.data() will be undefined in this case
       return "No such document!";

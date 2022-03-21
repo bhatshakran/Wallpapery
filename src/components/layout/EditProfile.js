@@ -18,10 +18,7 @@ const EditProfile = ({ firebase }) => {
   const { uid } = user;
   const dispatch = useDispatch();
   const { displayName } = details.user;
-  const additionalUserData = useSelector(
-    (state) => state.auth.additionalUserData
-  );
-  const { about, hobbies } = additionalUserData.userFile;
+  let additionalData = useSelector((state) => state.auth.additionalUserData);
 
   const [updatedName, setUpdatedName] = useState(null);
   const [updatedHobbies, setupdatedHobbies] = useState(null);
@@ -156,9 +153,11 @@ const EditProfile = ({ firebase }) => {
               <input
                 type="text"
                 onChange={handleHobbiesChange}
-                placeholder={hobbies}
+                placeholder="Edit Hobbies"
                 className="form-control"
-                defaultValue={hobbies ? hobbies : "Add Hobbies"}
+                defaultValue={
+                  additionalData ? additionalData.userFile.hobbies : ""
+                }
               />
             </div>
             <div className="flex items-center w-full mt-4 text-lg username text-stone-500">
@@ -169,7 +168,9 @@ const EditProfile = ({ firebase }) => {
                 rows="2"
                 placeholder="Edit About"
                 onChange={handleAboutChange}
-                defaultValue={about ? about : "Add About"}
+                defaultValue={
+                  additionalData ? additionalData.userFile.about : ""
+                }
                 className="w-full px-2 ml-2 bg-transparent border-b-2 resize-none focus:outline-none focus:border-blue-400"
               ></textarea>
             </div>
