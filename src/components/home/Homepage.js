@@ -75,7 +75,7 @@ const Homepage = () => {
               return i === data.Imgs.length - 1 &&
                 !loading &&
                 TOTAL_PAGES <= 25 ? (
-                <div key={i - 1} onClick={goToPictureRoute}>
+                <div key={i - 1} onClick={() => goToPictureRoute(el.id)}>
                   <ImgCard card_data={el} ref={setLastElement} />
                 </div>
               ) : (

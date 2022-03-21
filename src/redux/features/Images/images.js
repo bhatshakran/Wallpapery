@@ -21,6 +21,17 @@ export const getImages = createAsyncThunk(
   }
 );
 
+// get an image by id
+export const getPictureById = createAsyncThunk('/api/getimage', async(id) =>{
+try {
+  const res = await ImagesClient.get(`photos/${id}`)
+  return res.data
+} catch (err) {
+  console.log(err)
+  return err
+}
+})
+
 // Images Slice
 
 export const ImageSlice = createSlice({
@@ -28,6 +39,7 @@ export const ImageSlice = createSlice({
   initialState: {
     Imgs: [],
     loading: true,
+    img: null,
   },
   reducers: {},
   extraReducers: {
@@ -35,6 +47,14 @@ export const ImageSlice = createSlice({
       state.Imgs = action.payload;
       state.loading = false;
     },
+    [getPictureById.pending] :(state, action) => {
+      state.img = null
+      state.loading = true 
+    },
+    [getPictureById.fulfilled] : (state, action) => {
+      state.loading = false;
+      state.img = action.payload;
+    }
   },
 });
 
