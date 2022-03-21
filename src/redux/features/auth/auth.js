@@ -77,6 +77,17 @@ try {
 }
 })
 
+// get user data file from firebase
+export const getUserFile = createAsyncThunk('/api/getuserfile', async(data) => {
+  try {
+    const {firebase, uid} = data
+    const res = await firebase.getUserDataFile(uid);
+    console.log(res)
+  } catch (err) {
+    console.log(err)
+  }
+
+})
 // login slice
 export const loginSlice = createSlice({
   name: "login",
@@ -88,6 +99,7 @@ export const loginSlice = createSlice({
       : {},
     token: localStorage.getItem("token") ? localStorage.getItem("token") : "",
     dp: localStorage.getItem("imgUrl") ? localStorage.getItem("imgUrl") : "",
+    additionalUserData: null,
   },
   reducers: {},
   extraReducers: {
@@ -124,6 +136,14 @@ export const loginSlice = createSlice({
     [updateUserPicture.fulfilled]: (state, action) => {
       state.loading = false;
       state.dp = action.payload;
+    },
+    [getUserFile.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.additionalUserData = action.payload
+    },
+    [updateAddtionalUserDetails.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.additionalUserData = action.payload;
     },
   },
 });

@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  getUserFile,
   updateAddtionalUserDetails,
   updateUsername,
   updateUserPicture,
@@ -13,8 +14,13 @@ const EditProfile = ({ firebase }) => {
   const details = useSelector((state) => state.auth);
   const imgurl = useSelector((state) => state.auth.dp);
   const loading = useSelector((state) => state.auth.loading);
+  const user = useSelector((state) => state.auth.user);
+  const { uid } = user;
   const dispatch = useDispatch();
   const { displayName } = details.user;
+  // const { additionalUserDetails } = useSelector(
+  //   (state) => state.auth.additionalUserDetails
+  // );
   const [updatedName, setUpdatedName] = useState(null);
   const [updatedHobbies, setupdatedHobbies] = useState(null);
   const [updatedAbout, setupdatedAbout] = useState(null);
@@ -79,6 +85,19 @@ const EditProfile = ({ firebase }) => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    let mounted = true;
+    const data = { firebase, uid };
+    if (mounted) {
+      dispatch(getUserFile(data));
+    }
+
+    return () => {
+      // executed when unmount
+      mounted = false;
+    };
+  }, []);
 
   // Conditional Rendering
   if (loading) {

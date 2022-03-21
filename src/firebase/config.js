@@ -1,5 +1,6 @@
 import app from "firebase/compat/app";
 import "firebase/compat/auth";
+import { getDoc, getFirestore, updateDoc } from "firebase/firestore";
 import {
   getAuth,
   updateProfile,
@@ -7,15 +8,7 @@ import {
   createUserWithEmailAndPassword,
 } from "firebase/auth";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
-import {
-  limitToFirst,
-  getDatabase,
-  query,
-  ref as DbRef,
-  set,
-  onValue,
-  update,
-} from "firebase/database";
+import { doc, setDoc } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -33,11 +26,14 @@ class Firebase {
     const myapp = app.initializeApp(firebaseConfig);
 
     this.auth = getAuth();
-    this.database = getDatabase(myapp, process.env.REACT_APP_DATABASE_URL);
+    this.database = getFirestore();
   }
+
+  // create a new user
   doCreateUserWithEmailAndPassword = (email, password) =>
     createUserWithEmailAndPassword(this.auth, email, password);
 
+  // sign in a user
   doSignInWithEmailAndPassword = async (email, password) => {
     try {
       const res = await signInWithEmailAndPassword(this.auth, email, password);
@@ -50,7 +46,7 @@ class Firebase {
   logOut = () => {
     this.auth.signOut();
   };
-
+  // update user
   updateUser = (updatedName, photoURL) => {
     try {
       if (updatedName) {
@@ -73,6 +69,8 @@ class Firebase {
     return this.auth.currentUser;
   };
 
+  // update profile pic of the user
+
   updateProfilePic = async (picture) => {
     // Get current username
     const user = this.auth.currentUser;
@@ -86,43 +84,66 @@ class Firebase {
     return response;
   };
 
+  // get profile pic from firebase storage
+
   getProfilePicUrl = async (picturename) => {
     const storage = getStorage();
     const res = await getDownloadURL(ref(storage, picturename));
     return res;
   };
 
+  // update the additional details of the user to the firestore database
+
   updateAdditionalUserDetails = async (parameters) => {
     const user = this.auth.currentUser;
     const { uid } = user;
     const { updatedHobbies, updatedAbout } = parameters;
 
-    const getUser = DbRef(this.database, "users/" + uid);
-    onValue(getUser, (snapshot) => {
-      if (snapshot.exists()) {
-        let updates = {};
-        if (updatedHobbies !== null) {
-          updates["hobbies"] = updatedHobbies;
-        }
-        if (updatedAbout !== null) {
-          updates["about"] = updatedAbout;
-        }
-
-        const updatedProp = update(
-          DbRef(this.database, "users/" + uid),
-          updates
-        );
-      } else {
-        //   console.log("create new user");
-        set(DbRef(this.database, "users/" + user.uid), {
-          username: user.displayName,
-          email: user.email,
-          profile_picture: user.photoURL,
-          hobbies: updatedHobbies ? updatedHobbies : null,
-          about: updatedAbout ? updatedAbout : null,
+    // if no user yet, create new doc for him/her
+    const userRef = doc(this.database, "users", uid);
+    if (userRef) {
+      if (updatedHobbies) {
+        await updateDoc(userRef, {
+          hobbies: updatedHobbies,
         });
       }
-    });
+      if (updatedAbout) {
+        await updateDoc(userRef, {
+          about: updatedAbout,
+        });
+      }
+    } else {
+      await setDoc(doc(this.database, "users", uid), {
+        name: user.displayName,
+        email: user.email,
+        about: updatedAbout ? updatedAbout : null,
+        hobbies: updatedHobbies ? updatedHobbies : null,
+      });
+    }
+
+    // return the user document file
+    const docSnap = await getDoc(userRef);
+
+    if (docSnap.exists()) {
+      return { updatedUser: docSnap.data() };
+    } else {
+      // doc.data() will be undefined in this case
+      return "No such document!";
+    }
+  };
+
+  // get user document from firestore
+  getUserDataFile = async (uid) => {
+    const userRef = doc(this.database, "users", uid);
+    // return the user document file
+    const docSnap = await getDoc(userRef);
+
+    if (docSnap.exists()) {
+      return { userFile: docSnap.data() };
+    } else {
+      // doc.data() will be undefined in this case
+      return "No such document!";
+    }
   };
 }
 
