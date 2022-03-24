@@ -21,7 +21,7 @@
         @apply text-text-primary text-6xl font-amazingslab
     }
     h2{
-        @apply text-4xl font-mono w-full  max-h-fit
+        @apply text-3xl font-vistol 
     }
     h3{
         @apply text-lg font-vistol mt-14 opacity-60
@@ -52,7 +52,7 @@
     }
 
     .centerafterlg{
-        @apply lg:container lg:mx-auto
+        @apply lg:container lg:mx-auto px-5
     }
     .hlts{
         @apply flex flex-col md:flex-row gap-y-10 h-auto py-20 mt-56 border-t border-b md:gap-x-10
