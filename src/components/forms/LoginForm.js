@@ -1,8 +1,6 @@
 import { useFormik } from "formik";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { AiFillFacebook } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../redux/features/auth/auth";
 import { useNavigate } from "react-router";
@@ -69,7 +67,7 @@ const LoginForm = ({ firebase }) => {
           placeholder="Email"
         />
         {formik.errors.email ? (
-          <div className="w-2/3 mx-auto text-xs text-red-600">
+          <div className="text-red-600 font-vistol text-md">
             {formik.errors.email}
           </div>
         ) : null}
@@ -88,7 +86,7 @@ const LoginForm = ({ firebase }) => {
           placeholder="Password"
         />
         {formik.errors.password ? (
-          <div className="w-2/3 mx-auto text-xs text-red-600">
+          <div className="text-red-600 font-vistol text-md">
             {formik.errors.password}
           </div>
         ) : null}

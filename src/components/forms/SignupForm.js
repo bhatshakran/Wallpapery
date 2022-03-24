@@ -48,44 +48,53 @@ const SignupForm = ({ firebase }) => {
     <form
       onSubmit={formik.handleSubmit}
       action=""
-      className="grid grid-cols-1 mt-4 lg:mx-40"
+      className="grid grid-cols-1 "
     >
-      <input
-        type="email"
-        name="email"
-        id="email"
-        onChange={formik.handleChange}
-        value={formik.values.email}
-        className="form-control"
-        placeholder="Email"
-      />
-      {formik.errors.email ? (
-        <div className="w-2/3 mx-auto text-xs text-red-600">
-          {formik.errors.email}
-        </div>
-      ) : null}
-
-      <input
-        type="password"
-        name="password"
-        id="password"
-        onChange={formik.handleChange}
-        value={formik.values.password}
-        className="form-control"
-        placeholder="Password"
-      />
-      {formik.errors.password ? (
-        <div className="w-2/3 mx-auto text-xs text-red-600">
-          {formik.errors.password}
-        </div>
-      ) : null}
+      <div className="form-group">
+        <label htmlFor="" className="formlabel">
+          email
+        </label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          onChange={formik.handleChange}
+          value={formik.values.email}
+          className="form-control"
+          placeholder="Email"
+        />
+        {formik.errors.email ? (
+          <div className="w-2/3 mx-auto text-xs text-red-600">
+            {formik.errors.email}
+          </div>
+        ) : null}
+      </div>
+      <div className="form-group">
+        <label htmlFor="" className="formlabel">
+          password
+        </label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          onChange={formik.handleChange}
+          value={formik.values.password}
+          className="form-control"
+          placeholder="Password"
+        />
+        {formik.errors.password ? (
+          <div className="w-2/3 mx-auto text-xs text-red-600">
+            {formik.errors.password}
+          </div>
+        ) : null}
+      </div>
       <button
         type="submit"
-        className="w-3/4 py-1 mx-auto mt-4 text-white bg-blue-300 rounded-sm cursor-pointer hover:bg-blue-600"
+        className="w-1/4 p-2 mt-10 text-lg border border-black font-vistol"
       >
         Sign Up
       </button>
-      <span className="w-3/4 mx-auto mt-4 text-xs font-medium text-center text-gray-500">
+      <span className="w-3/4 mt-4 text-xs text-gray-500 font-vistol opacity-60">
         By signing up, you agree to our{" "}
         <strong> Terms , Data Policy and Cookies Policy .</strong>
       </span>

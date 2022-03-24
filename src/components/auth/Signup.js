@@ -1,45 +1,31 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { AiFillFacebook } from "react-icons/ai";
+import signupavatar from "../../images/signupavatar.svg";
+import signupsvg from "../../images/signup.svg";
 import SignupForm from "../forms/SignupForm";
 import { FirebaseContext } from "../../firebase";
-import { useSelector } from "react-redux";
 
 const Signup = () => {
-  let msg = useSelector((state) => state.users.message);
-
   return (
-    <React.Fragment>
-      <div className="mx-auto mt-8 border border-gray-200 largecard">
-        {msg !== "" ? (
-          <div className="w-full mt-2 mb-2 text-white bg-blue-500">{msg}</div>
-        ) : (
-          ""
-        )}
-        <h1 className="pt-6 text-5xl text-center font-grand-hotel">
-          Wallpapery
-        </h1>
-        <h2 className="w-3/4 mx-auto mt-4 font-bold text-center text-gray-500 text-md">
-          Sign up to like, comment and share photos.
-        </h2>
-        <div className="flex items-center justify-center w-3/4 py-1 mx-auto mt-5 font-medium text-white rounded-sm bg-instablue-default text-md">
-          <AiFillFacebook className="text-xl" />
-          <Link to="/facebook" className="text-center">
-            Log in with Facebook
-          </Link>
+    <div className="h-auto gap-16 py-2 pb-10 mt-8 md:flex centerafterlg">
+      <div className="flex items-center md:w-1/2 pane-l">
+        <img src={signupsvg} alt="" className="mx-auto md:m-0 w-80 md:w-full" />
+      </div>
+      <div className="mt-28 md:w-1/2 pane-r md:m-0">
+        <div>
+          <h1 className="text-center">Sign Up</h1>
+          <img src={signupavatar} alt="" className="w-24 h-24 mx-auto mt-12" />
         </div>
-        <div className="mt-4 text-center text-gray-500">OR</div>
         <FirebaseContext.Consumer>
           {(firebase) => <SignupForm firebase={firebase} />}
         </FirebaseContext.Consumer>
       </div>
-      <div className="flex items-center justify-center mx-auto mt-3 text-sm border border-gray-200 smallcard">
+      {/* <div className="flex items-center justify-center mx-auto mt-3 text-sm border border-gray-200 smallcard">
         <span>Have an account?</span>
         <Link to="/login" className="ml-2 text-blue-900">
           Login
         </Link>
-      </div>
-    </React.Fragment>
+      </div> */}
+    </div>
   );
 };
 
