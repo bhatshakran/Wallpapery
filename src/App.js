@@ -13,7 +13,7 @@ import Picture from "./components/layout/Picture";
 function App() {
   return (
     <Router>
-      <div className="mx-auto App lg:container">
+      <div className="App ">
         <Navbar />
 
         <Routes>

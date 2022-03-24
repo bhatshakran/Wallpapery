@@ -7,7 +7,7 @@
 @layer base {
 
     html,body{
-        @apply bg-background-color
+        @apply bg-background-color m-0 p-0
     }
     @font-face {
         font-family: 'Amazing-slab';
@@ -24,10 +24,10 @@
         @apply text-4xl font-mono w-full  max-h-fit
     }
     h3{
-        @apply text-3xl
+        @apply text-lg font-vistol mt-14 opacity-60
     }
     p{
-        @apply text-text-sec font-sans text-sm mt-4 max-h-full 
+        @apply font-vistol
     }
 
     .form-control{
@@ -42,5 +42,19 @@
     }
     label{
         @apply  text-text-sec 
+    }
+
+    .pane{
+    @apply  min-h-full text-center
+    }
+    .mini-img{
+        @apply mx-auto h-24
+    }
+
+    .centerafterlg{
+        @apply lg:container lg:mx-auto
+    }
+    .hlts{
+        @apply flex flex-col md:flex-row gap-y-10 h-auto py-20 mt-56 border-t border-b md:gap-x-10
     }
 }
