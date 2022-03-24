@@ -9,6 +9,7 @@ import {
 import imageCompression from "browser-image-compression";
 import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader";
 import { css } from "@emotion/react";
+import editprofilesvg from "../../images/editprofile.svg";
 
 const EditProfile = ({ firebase }) => {
   const details = useSelector((state) => state.auth);
@@ -107,38 +108,36 @@ const EditProfile = ({ firebase }) => {
     );
   } else
     return (
-      <div className="h-auto px-8 pt-16 pb-10 mx-2 my-4 ">
-        <div className="flex flex-wrap justify-center w-full gap-10 heading">
-          <h1>Edit Profile</h1>
-        </div>
+      <div className="centerafterlg ">
+        <h1 className="mt-6 text-center">Edit Profile</h1>
 
-        <div className="flex flex-wrap justify-between w-full gap-2 mt-20 flex-column lg:flex-nowrap panecontainer">
+        <div className="w-full h-auto py-2 pb-10 mt-8 flexwrapper md:flex md:gap-x-12">
           {/* left pane */}
-          <div className="w-full rounded-sm shadow-sm lg:w-1/2 leftpane">
-            <div className="flex justify-center w-full mt-24 rounded-full h-60 img_container">
-              <img
-                src={imgurl}
-                alt=""
-                className="h-full border-2 rounded-full shadow-xl w-60"
-              />
-            </div>
-            <div className="flex flex-wrap justify-center w-full gap-2 pb-8 change_pp mt-11">
-              <div className="flex justify-center w-full text-stone-700 d_name">
-                <label className="file_upload text-md">
-                  <input
-                    type="file"
-                    accept="image/png, image/jpeg"
-                    onChange={handleImgChange}
-                  />
-                  Change Profile Picture
-                </label>
-              </div>
-            </div>
+          <div className="flex items-center w-full h-auto md:w-1/2 leftpane">
+            <img src={editprofilesvg} alt="" className="md:w-96" />
           </div>
           {/* right pane */}
-          <div className="w-full p-4 rounded-sm shadow-sm lg:w-1/2 rightpane">
-            <div className="flex items-baseline w-full text-lg username text-stone-500">
-              <label htmlFor="username">Username:</label>
+          <div className="px-2 mt-36 rightpane md:w-1/2 md:mt-0">
+            <img
+              src={imgurl}
+              alt=""
+              className="w-40 h-40 mx-auto rounded-full "
+            />
+
+            <div className="mb-5 change_pp mt-11">
+              <label className="file_upload text-md">
+                <input
+                  type="file"
+                  accept="image/png, image/jpeg"
+                  onChange={handleImgChange}
+                />
+                Change Profile Picture
+              </label>
+            </div>
+            <div className="w-full username ">
+              <label htmlFor="username" className="formlabel">
+                Username:
+              </label>
               <input
                 type="text"
                 placeholder="Edit Username"
@@ -148,8 +147,10 @@ const EditProfile = ({ firebase }) => {
               />
             </div>
 
-            <div className="flex items-baseline w-full text-lg username text-stone-500">
-              <label htmlFor="hobbies">Hobbies:</label>
+            <div className="w-full mt-6 hobbies">
+              <label htmlFor="hobbies" className="formlabel">
+                Hobbies:
+              </label>
               <input
                 type="text"
                 onChange={handleHobbiesChange}
@@ -160,8 +161,10 @@ const EditProfile = ({ firebase }) => {
                 }
               />
             </div>
-            <div className="flex items-center w-full mt-4 text-lg username text-stone-500">
-              <label htmlFor="about">About:</label>
+            <div className="w-full mt-6 about">
+              <label htmlFor="about" className="formlabel">
+                About:
+              </label>
               <textarea
                 name=""
                 id=""
@@ -171,12 +174,12 @@ const EditProfile = ({ firebase }) => {
                 defaultValue={
                   additionalData ? additionalData.userFile.about : ""
                 }
-                className="w-full px-2 ml-2 bg-transparent border-b-2 resize-none focus:outline-none focus:border-blue-400"
+                className="w-full px-2 text-xl bg-transparent border border-black rounded-sm opacity-75 resize-none focus:outline-none focus:opacity-100 focus:border-2"
               ></textarea>
             </div>
             <div className="mt-12 update_btn">
               <button
-                className="px-4 py-2 text-white bg-blue-500 rounded-sm"
+                className="px-4 py-2 border border-black font-vistol"
                 onClick={handleUserDetailsChange}
               >
                 Update Details

@@ -35,7 +35,7 @@
     }
 
     .file_upload{
-        @apply inline-block p-2 text-white bg-blue-500 border border-gray-200 rounded cursor-pointer  
+        @apply inline-block p-2 text-black border border-black  cursor-pointer  font-vistol 
     }
     input[type='file']{
         @apply hidden;
