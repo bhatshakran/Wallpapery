@@ -1,14 +1,24 @@
 @tailwind base;
 @tailwind components;
+
+
 @tailwind utilities;
 
 @layer base {
 
     html,body{
-        @apply bg-back-color
+        @apply bg-background-color
+    }
+    @font-face {
+        font-family: 'Amazing-slab';
+        src: url(./fonts/Amazing-Slab-Black-trial.ttf);
+    }
+    @font-face {
+        font-family: 'Vistol-sans';
+        src: url(./fonts/VistolSans-Black.otf);
     }
     h1{
-        @apply text-text-primary text-6xl font-mono
+        @apply text-text-primary text-6xl font-amazingslab
     }
     h2{
         @apply text-4xl font-mono w-full  max-h-fit
