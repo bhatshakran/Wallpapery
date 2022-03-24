@@ -2,6 +2,9 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getUserFile } from "../../redux/features/auth/auth";
+import redsponge from "../../images/red-sponge.png";
+import aboutsvg from "../../images/about.svg";
+import hobbiessvg from "../../images/biking.svg";
 
 const Profile = ({ firebase }) => {
   const dispatch = useDispatch();
@@ -29,48 +32,52 @@ const Profile = ({ firebase }) => {
     return <div>Loading...</div>;
   } else
     return (
-      <div className="h-auto px-8 pt-16 pb-10 mx-2 my-4 ">
-        <div className="flex flex-wrap items-center justify-center w-full gap-10 heading">
-          <h1 className="">Profile</h1>
-          <div className="edit_btn">
-            <Link to="/edit_profile">
-              <button className="px-4 py-2 text-white bg-blue-500 rounded-sm">
-                Edit profile
-              </button>
-            </Link>
+      <div className="centerafterlg">
+        <h1 className="mt-6 text-center">Profile</h1>
+        <div className="w-full h-auto py-2 pb-10 mt-8 flexwrapper md:flex ">
+          <div className="p-2 text-center md:text-left panel-l font-vistol md:w-1/2">
+            <div className="w-full">
+              <img
+                src={imgurl}
+                alt=""
+                className="w-40 h-40 mx-auto rounded-full border-1 md:mx-0"
+              />
+            </div>
+            {/* username div */}
+            <div className="flex items-center justify-center gap-4 mt-16 md:justify-start">
+              <img src={redsponge} alt="" className="w-12 h-12" />
+
+              <h3 className="m-0 tracking-widest opacity-100">{displayName}</h3>
+            </div>
+            {/* email */}
+            <div>
+              <p className="mt-8 opacity-50">{email}</p>
+            </div>
+
+            <div className="edit_btn">
+              <Link to="/edit_profile">
+                <button className="px-4 py-2 mt-8 border border-black">
+                  Edit profile
+                </button>
+              </Link>
+            </div>
           </div>
-        </div>
-        <div className="flex justify-center w-full h-40 mt-24 rounded-full img_container">
-          <img
-            src={imgurl}
-            alt=""
-            className="w-40 h-full border-2 rounded-full shadow-xl"
-          />
-        </div>
-        <div className="flex flex-wrap w-full gap-2 pb-8 border-b-2 border-gray-100 name mt-11">
-          <div className="flex justify-center w-full text-xl text-stone-700 d_name">
-            <h3>{displayName}</h3>
-          </div>
-          <div className="flex justify-center w-full username text-stone-500">
-            <h4>{email}</h4>
-          </div>
-        </div>
-        {/* info container starts here */}
-        <div className="flex flex-wrap h-auto p-4 mx-4 mt-4 lg:flex-nowrap gap-y-16 gap-x-14 info_container rounded-3xl">
-          <div className="flex flex-wrap w-full text-gray-500 lg:mr-2 lg:w-1/3 about ">
-            <h2 className="">About</h2>
-            <p className="">
-              {additionalData ? additionalData.userFile.about : ""}
-            </p>
-          </div>
-          <div className="flex flex-wrap w-full h-full text-gray-500 lg:mr-2 lg:w-1/3 hobbies ">
-            <h2 className="">Photos</h2>
-          </div>
-          <div className="flex flex-wrap w-full text-gray-500 lg:mr-2 lg:w-1/3 about ">
-            <h2 className="">Hobbies</h2>
-            <p className="">
-              {additionalData ? additionalData.userFile.hobbies : ""}
-            </p>
+          <div className="p-2 text-white mt-28 md:mt-0 panel-r md:w-1/2">
+            {/* info container starts here */}
+            <div className="w-full card bg-text-primary">
+              <h2 className="text-center font-amazingslab">About</h2>
+              <img src={aboutsvg} alt="" className="h-52" />
+              <p className="mt-6">
+                {additionalData ? additionalData.userFile.about : ""}
+              </p>
+            </div>
+            <div className="w-full mt-6 card bg-card-red">
+              <h2 className="text-center font-amazingslab">Hobbies</h2>
+              <img src={hobbiessvg} alt="" className="h-52" />
+              <p className="mt-6">
+                {additionalData ? additionalData.userFile.hobbies : ""}
+              </p>
+            </div>
           </div>
         </div>
       </div>

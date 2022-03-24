@@ -10,6 +10,7 @@ module.exports = {
         "background-color": "#edede8",
         "text-primary": "#405b53",
         "text-sec": "#575757",
+        "card-red": "#d52c40",
       },
     },
   },

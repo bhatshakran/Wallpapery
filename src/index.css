@@ -64,4 +64,8 @@
     .form-group{
         @apply mt-5
     }
+
+    .card{
+        @apply  py-4 pl-8 pr-8 rounded-lg
+    }
 }
