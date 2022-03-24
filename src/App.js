@@ -9,6 +9,7 @@ import EditProfile from "./components/layout/EditProfile";
 import { useSelector } from "react-redux";
 import { FirebaseContext } from "./firebase";
 import Picture from "./components/layout/Picture";
+import Explore from "./components/layout/Explore";
 
 function App() {
   return (
@@ -18,6 +19,17 @@ function App() {
 
         <Routes>
           <Route exact path="/" element={<Homepage />} />
+          <Route
+            exact
+            path="/explore"
+            element={
+              <RequireAuth redirectTo="/login">
+                <FirebaseContext.Consumer>
+                  {(firebase) => <Explore firebase={firebase} />}
+                </FirebaseContext.Consumer>
+              </RequireAuth>
+            }
+          />
           <Route exact path="/signup" element={<Signup />} />
           <Route exact path="/login" element={<Login />} />
           <Route

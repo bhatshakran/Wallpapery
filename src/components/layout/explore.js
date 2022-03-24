@@ -6,10 +6,10 @@ import { getImages } from "../../redux/features/Images/images";
 // import ImageGrid from "../layout/ImageGrid";
 import { debounce } from "lodash";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
-import ImgCard from "../layout/ImgCard";
+import ImgCard from "./ImgCard";
 import { useNavigate } from "react-router-dom";
 
-const Homepage = () => {
+const Explore = () => {
   const TOTAL_PAGES = 25;
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -65,7 +65,7 @@ const Homepage = () => {
     return <div>Loading...</div>;
   } else
     return (
-      <div className="w-full min-h-screen p-2 mt-8 ">
+      <div className="w-full min-h-screen p-2 mt-8 centerafterlg">
         <ToastContainer />
         {/* grid */}
 
@@ -90,4 +90,4 @@ const Homepage = () => {
     );
 };
 
-export default Homepage;
+export default Explore;

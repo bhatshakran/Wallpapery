@@ -31,7 +31,7 @@
     }
 
     .form-control{
-        @apply w-full px-2 py-2 mx-2 mt-4 text-lg bg-transparent border-b-2 border-gray-200 rounded-sm focus:outline-none focus:border-blue-400 ;
+        @apply w-full px-2 py-2 mt-4 text-lg bg-transparent border border-black rounded-sm focus:outline-none focus:border-2 ;
     }
 
     .file_upload{
@@ -56,5 +56,12 @@
     }
     .hlts{
         @apply flex flex-col md:flex-row gap-y-10 h-auto py-20 mt-56 border-t border-b md:gap-x-10
+    }
+
+    .formlabel{
+        @apply text-xl font-vistol tracking-widest
+    }
+    .form-group{
+        @apply mt-5
     }
 }

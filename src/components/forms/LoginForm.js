@@ -54,43 +54,53 @@ const LoginForm = ({ firebase }) => {
   });
 
   return (
-    <form onSubmit={formik.handleSubmit} className="grid grid-cols-1 mt-4">
-      <input
-        type="email"
-        name="email"
-        id="email"
-        onChange={formik.handleChange}
-        value={formik.values.email}
-        className="form-control"
-        placeholder="Email"
-      />
-      {formik.errors.email ? (
-        <div className="w-2/3 mx-auto text-xs text-red-600">
-          {formik.errors.email}
-        </div>
-      ) : null}
-      <input
-        type="password"
-        name="password"
-        id="password"
-        onChange={formik.handleChange}
-        value={formik.values.password}
-        className="form-control"
-        placeholder="Password"
-      />
-      {formik.errors.password ? (
-        <div className="w-2/3 mx-auto text-xs text-red-600">
-          {formik.errors.password}
-        </div>
-      ) : null}
+    <form onSubmit={formik.handleSubmit} className="grid grid-cols-1 ">
+      <div className="form-group">
+        <label htmlFor="" className="formlabel">
+          email
+        </label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          onChange={formik.handleChange}
+          value={formik.values.email}
+          className="form-control"
+          placeholder="Email"
+        />
+        {formik.errors.email ? (
+          <div className="w-2/3 mx-auto text-xs text-red-600">
+            {formik.errors.email}
+          </div>
+        ) : null}
+      </div>
+      <div className="form-group">
+        <label htmlFor="" className="formlabel">
+          password
+        </label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          onChange={formik.handleChange}
+          value={formik.values.password}
+          className="form-control"
+          placeholder="Password"
+        />
+        {formik.errors.password ? (
+          <div className="w-2/3 mx-auto text-xs text-red-600">
+            {formik.errors.password}
+          </div>
+        ) : null}
+      </div>
       <button
         type="submit"
-        className="w-3/4 py-1 mx-auto mt-4 text-white bg-blue-300 rounded-sm cursor-pointer hover:bg-blue-600"
+        className="w-1/4 p-2 mt-10 text-lg border border-black font-vistol"
       >
-        Login
+        Sign In
       </button>
 
-      <div className="mt-4 text-center text-gray-500">OR</div>
+      {/* <div className="mt-4 text-center text-gray-500">OR</div>
       <div className="flex items-center justify-center mt-5 font-medium text-blue-900 text-md">
         <AiFillFacebook className="text-xl" />
         <Link to="/" className="text-center">
@@ -99,7 +109,7 @@ const LoginForm = ({ firebase }) => {
       </div>
       <div className="mt-3 text-sm text-center text-blue-900">
         <Link to="/">Forgot Password?</Link>
-      </div>
+      </div> */}
     </form>
   );
 };

@@ -5,6 +5,7 @@ import hd from "../../images/hd.png";
 import free from "../../images/free.png";
 import screen from "../../images/screen.png";
 import iphone6 from "../../images/iPhone6+.png";
+import { Link } from "react-router-dom";
 
 const Homepage = () => {
   return (
@@ -61,9 +62,11 @@ const Homepage = () => {
               choose from.From nature to tech it has got every kind of wallpaper
               you need to style your device. Want to explore our collections?
             </h2>
-            <button className="px-4 py-4 mt-10 text-xl border lg:text-3xl xl:text-5xl font-vistol">
-              Explore
-            </button>
+            <Link to="/explore">
+              <button className="px-4 py-4 mt-10 text-xl border lg:text-3xl xl:text-5xl font-vistol">
+                Explore
+              </button>
+            </Link>
           </div>
           <div className="w-auto lg:w-1/3 section">
             <img
